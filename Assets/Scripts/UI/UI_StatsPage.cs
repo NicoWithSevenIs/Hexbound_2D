@@ -1,17 +1,68 @@
 using TMPro;
 using UnityEngine;
 using Hexbound.Stats;
+using System;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UI_StatsPage : MonoBehaviour
 {
     #region UI NAV
+
+    [Serializable]
+    private class ButtonItem
+    {
+        public string name;
+        public Button button;
+    }
+
     [Header("UI Navigation")]
     [SerializeField] private Vector2 slide_threshold;
     [SerializeField] private float slide_speed;
-    private bool is_open = false;
-    private bool is_sliding = false;
+
+
+    [Header("References")]
+    [SerializeField] private List<ButtonItem> buttons_list;
+    [SerializeField] private TextMeshProUGUI stat_context;
+
+    [Header("Debug")]
+    [SerializeField] private string mode = "";
+    [SerializeField] private bool is_sliding = false;
 
     private RectTransform rect;
+
+    public void ToggleFrame(string name)
+    {    
+        if (is_sliding) return;
+        mode = mode != name ? name : "";
+        
+        is_sliding = true;
+    }
+
+    #endregion
+
+    public void DisplayBaseStats(CharacterStat_Snapshot base_snapshot)
+    {
+        if (mode != "Base") return;
+        stat_context.text = "Base Stats";
+        DisplayStats(base_snapshot);
+    }
+
+    public void DisplayBuildStats(CharacterStat_Snapshot build_snapshot)
+    {
+        if (mode != "Build") return;
+        stat_context.text = "Build Stats";
+        DisplayStats(build_snapshot);
+    }
+
+    public void DisplayBattleStats(CharacterStat_Snapshot current_snapshot, CharacterStat_Snapshot total_snapshot)
+    {
+        if (mode != "Battle") return;
+        stat_context.text = "Batle Stats";
+        DisplayStatsRatio(current_snapshot, total_snapshot);
+    }
+
+    #region Lifecycle Methods
 
     private void Start()
     {
@@ -23,23 +74,10 @@ public class UI_StatsPage : MonoBehaviour
         if (!is_sliding) return;
 
         var pos = rect.anchoredPosition;
-        pos.x = !is_open ? slide_threshold.x : slide_threshold.y;
-
+        pos.x = string.IsNullOrEmpty(mode) ? slide_threshold.x : slide_threshold.y;
 
         rect.anchoredPosition = Vector3.MoveTowards(rect.anchoredPosition, pos, Time.deltaTime * slide_speed);
-
-        if (rect.anchoredPosition.x == slide_threshold.x || rect.anchoredPosition.x == slide_threshold.y)
-        {
-            is_sliding = false;
-        }
-            
-    }
-
-    public void ToggleFrame()
-    {    
-        if (is_sliding) return;
-        is_open = !is_open;
-        is_sliding = true;
+        is_sliding = rect.anchoredPosition.x != slide_threshold.x && rect.anchoredPosition.x != slide_threshold.y;
     }
     #endregion
 
@@ -65,9 +103,8 @@ public class UI_StatsPage : MonoBehaviour
     [SerializeField] private TextMeshProUGUI percent_pen;
     [SerializeField] private TextMeshProUGUI all_dmg_amp;
 
-    public void UpdateStatDisplay(CharacterStat_Snapshot snapshot)
+    private void DisplayStats(CharacterStat_Snapshot snapshot)
     {
-
         var bss = snapshot.basic_snapshot;
         var ass = snapshot.advanced_snapshot;
 
@@ -94,6 +131,38 @@ public class UI_StatsPage : MonoBehaviour
         percent_pen.text = $"{ass.PERCENT_PEN * 100}%";
 
         all_dmg_amp.text = $"{ass.ALL_DMG_AMP * 100}%";
+    }
+
+    private void DisplayStatsRatio(CharacterStat_Snapshot current, CharacterStat_Snapshot total)
+    {
+        var c_bss = current.basic_snapshot;
+        var c_ass = current.advanced_snapshot;
+        var t_bss = total.basic_snapshot;
+        var t_ass = total.advanced_snapshot;
+
+        // Basic stats
+        hp.text = $"{c_bss.HP}/{t_bss.HP}";
+        atk.text = $"{c_bss.ATK}/{t_bss.ATK}";
+        def.text = $"{c_bss.DEF}/{t_bss.DEF}";
+        atk_spd.text = $"{c_bss.ATK_SPD}/{t_bss.ATK_SPD}";
+        mov_spd.text = $"{c_bss.MOV_SPD}/{t_bss.MOV_SPD}";
+
+        // Advanced stats
+        dash_dist.text = $"{c_ass.DASH_DIST * 100}%/{t_ass.DASH_DIST * 100}%";
+        spa.text = $"{c_ass.SPA}/{t_ass.SPA}";
+        qsm.text = $"{c_ass.QSM * 100}%/{t_ass.QSM * 100}%";
+
+        crit_rate.text = $"{c_ass.CRIT_RATE * 100}%/{t_ass.CRIT_RATE * 100}%";
+        crit_dmg.text = $"{c_ass.CRIT_DMG * 100}%/{t_ass.CRIT_DMG * 100}%";
+
+        echo_rate.text = $"{c_ass.ECHO_RATE * 100}%/{t_ass.ECHO_RATE * 100}%";
+        echo_count.text = $"{c_ass.ECHO_COUNT}/{t_ass.ECHO_COUNT}";   
+        echo_dmg.text = $"{c_ass.ECHO_DMG * 100}%/{t_ass.ECHO_DMG * 100}%";
+
+        flat_pen.text = $"{c_ass.FLAT_PEN}/{t_ass.FLAT_PEN}";
+        percent_pen.text = $"{c_ass.PERCENT_PEN * 100}%/{t_ass.PERCENT_PEN * 100}%";
+
+        all_dmg_amp.text = $"{c_ass.ALL_DMG_AMP * 100}%/{t_ass.ALL_DMG_AMP * 100}%";
     }
     #endregion
 }

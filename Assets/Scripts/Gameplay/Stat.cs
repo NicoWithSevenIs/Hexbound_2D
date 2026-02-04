@@ -73,6 +73,16 @@ namespace Hexbound.Stats
             snapshot.advanced_snapshot = new AdvancedStat_Snapshot(c_stats.AdvancedStats);
             return snapshot;
         }
+
+        public static Character_Stats Copy(Character_Stats c_stats)
+        {
+            Character_Stats new_stats = new();
+
+            new_stats.BasicStats = c_stats.BasicStats;
+            new_stats.AdvancedStats = c_stats.AdvancedStats;
+
+            return new_stats;
+        }
     }
 
     #region Stat Snapshot
