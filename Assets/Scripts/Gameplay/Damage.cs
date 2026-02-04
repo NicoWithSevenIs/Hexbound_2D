@@ -9,23 +9,23 @@ public enum Damage_Tag
 
 public interface IDamageable
 {
-    public void ReceiveDamage(float dmg);
+    public void ReceiveDamage(float dmg, List<Damage_Tag> damage_tags, IDamageable source);
 }
 
 public class Damage
 {
     public float amount;
     public List<Damage_Tag> damage_tags;
-    public Unit source;
+    public IDamageable source;
     public IDamageable target;
 }
 
 
-public class DamageManager
+public class DamageManager: SingletonBehaviour<DamageManager>
 {
-    public Queue<Damage> damage_queue;
+    public Queue<Damage> damage_queue = new();
 
-    public void ApplyDamage(float amt, List<Damage_Tag> damage_tags, IDamageable target, Unit source = null)
+    public static void ApplyDamage(float amt, IDamageable target, List<Damage_Tag> damage_tags = null, IDamageable source = null)
     {
         var dmg = new Damage()
         {
@@ -34,6 +34,16 @@ public class DamageManager
             source = source,
             target = target
         };
-        damage_queue.Enqueue(dmg);
+        Instance.damage_queue.Enqueue(dmg);
     }
+    private void Update()
+    {
+        //wip
+        while (damage_queue.Count > 0)
+        {
+            var dmg = damage_queue.Dequeue();
+            dmg.target.ReceiveDamage(dmg.amount, dmg.damage_tags, dmg.source);
+        }
+    }
+
 }

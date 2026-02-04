@@ -1,5 +1,6 @@
-using UnityEngine;
 using Hexbound.Stats;
+using System.Collections.Generic;
+using UnityEngine;
 public class Unit_Instance : MonoBehaviour, IDamageable
 {
     protected Basic_Stat stats;
@@ -15,7 +16,7 @@ public class Unit_Instance : MonoBehaviour, IDamageable
         percent_bonus = new();
     }
 
-    public virtual void ReceiveDamage(float dmg)
+    public virtual void ReceiveDamage(float dmg, List<Damage_Tag> damage_tags, IDamageable source)
     {
 
     }

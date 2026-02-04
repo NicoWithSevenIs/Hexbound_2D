@@ -58,7 +58,7 @@ public class UI_StatsPage : MonoBehaviour
     public void DisplayBattleStats(CharacterStat_Snapshot current_snapshot, CharacterStat_Snapshot total_snapshot)
     {
         if (mode != "Battle") return;
-        stat_context.text = "Batle Stats";
+        stat_context.text = "Battle Stats";
         DisplayStatsRatio(current_snapshot, total_snapshot);
     }
 

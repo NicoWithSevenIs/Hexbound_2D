@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Hexbound.Stats
 {
     [Serializable]
-    public class Basic_Stat
+    public partial class Basic_Stat
     {
         public float HP = 0;
         public float ATK = 0;
@@ -14,8 +14,9 @@ namespace Hexbound.Stats
         public float MOV_SPD = 0;
     }
 
+
     [Serializable]
-    public class Advanced_Stat
+    public partial class Advanced_Stat
     {
         /*Dash Distance - Percentage amplification of the fixed base dash distance*/
         public float DASH_DIST = 1f;
@@ -38,7 +39,7 @@ namespace Hexbound.Stats
         /*PEN Stats - Ignores a portion of the target's DEF during damage calculation.
                 -> FLAT_PEN - flat def ignore, applied after Percent Def Ignore.
                 -> PERCENT_PEN - pen pineapple apple pen*/
-        public uint FLAT_PEN = 0;
+        public int FLAT_PEN = 0;
         public float PERCENT_PEN = 0f;
 
 
@@ -50,7 +51,7 @@ namespace Hexbound.Stats
         /*Echo Stats - Chance to repeat a portion of the DMG dealt as Additional 
          DMG multiple times equal to the Echo Count*/
         public float ECHO_RATE = 0.05f;
-        public uint ECHO_COUNT = 3;
+        public int ECHO_COUNT = 3;
         public float ECHO_DMG = 0.2f;
 
         /*DMG AMP - Amplifies final damage dealt*/
@@ -58,13 +59,13 @@ namespace Hexbound.Stats
     }
 
     [Serializable]
-    public class Character_Stats
+    public partial class Character_Stats
     {
         public Basic_Stat BasicStats;
         public Advanced_Stat AdvancedStats;
     }
    
-    public static class Utilities
+    public static class Stat_Utilities
     {
         public static CharacterStat_Snapshot Snapshot(Character_Stats c_stats)
         {
@@ -73,19 +74,9 @@ namespace Hexbound.Stats
             snapshot.advanced_snapshot = new AdvancedStat_Snapshot(c_stats.AdvancedStats);
             return snapshot;
         }
-
-        public static Character_Stats Copy(Character_Stats c_stats)
-        {
-            Character_Stats new_stats = new();
-
-            new_stats.BasicStats = c_stats.BasicStats;
-            new_stats.AdvancedStats = c_stats.AdvancedStats;
-
-            return new_stats;
-        }
     }
 
-    #region Stat Snapshot
+    #region Snapshot
 
     public class CharacterStat_Snapshot
     {
@@ -117,14 +108,14 @@ namespace Hexbound.Stats
         public float QSM;
         public float SPA;
 
-        public uint FLAT_PEN;
+        public int FLAT_PEN;
         public float PERCENT_PEN;
 
         public float CRIT_RATE;
         public float CRIT_DMG;
 
         public float ECHO_RATE;
-        public uint ECHO_COUNT;
+        public int ECHO_COUNT;
         public float ECHO_DMG;
 
         public float ALL_DMG_AMP;
@@ -151,5 +142,157 @@ namespace Hexbound.Stats
     }
     #endregion
 
+
+    #region Stat Operators
+    public partial class Basic_Stat
+    {
+        public static Basic_Stat operator +(Basic_Stat a, Basic_Stat b)
+        {
+            Basic_Stat sum = new();
+
+            sum.HP = a.HP + b.HP;
+            sum.ATK = a.ATK + b.ATK;
+            sum.DEF = a.DEF + b.DEF;
+            sum.ATK_SPD = a.ATK_SPD + b.ATK_SPD;
+            sum.MOV_SPD = a.MOV_SPD + b.MOV_SPD;
+
+            return sum;
+        }
+
+        public static Basic_Stat operator -(Basic_Stat v)
+        {
+            Basic_Stat negated = new();
+
+            negated.HP = -v.HP;
+            negated.ATK = -v.ATK;
+            negated.DEF = -v.DEF;
+            negated.ATK_SPD = -v.ATK_SPD;
+            negated.MOV_SPD = -v.MOV_SPD;
+
+            return negated;
+        }
+
+        public static Basic_Stat operator -(Basic_Stat a, Basic_Stat b)
+        {
+            return a + -b;
+        }
+
+    }
+
+    public partial class Advanced_Stat
+    {
+        public static Advanced_Stat operator +(Advanced_Stat a, Advanced_Stat b)
+        {
+            Advanced_Stat sum = new();
+
+            sum.DASH_DIST = a.DASH_DIST + b.DASH_DIST;
+            sum.QSM = a.QSM + b.QSM;
+            sum.SPA = a.SPA + b.SPA;
+            sum.CRIT_RATE = a.CRIT_RATE + b.CRIT_RATE;
+            sum.CRIT_DMG = a.CRIT_DMG + b.CRIT_DMG;
+            sum.ECHO_RATE = a.ECHO_RATE + b.ECHO_RATE;
+            sum.ECHO_COUNT = a.ECHO_COUNT + b.ECHO_COUNT;
+            sum.ECHO_DMG = a.ECHO_DMG + b.ECHO_DMG;
+            sum.FLAT_PEN = a.FLAT_PEN + b.FLAT_PEN;
+            sum.PERCENT_PEN = a.PERCENT_PEN + b.PERCENT_PEN;
+            sum.ALL_DMG_AMP = a.ALL_DMG_AMP + b.ALL_DMG_AMP;
+
+            return sum;
+        }
+
+        public static Advanced_Stat operator -(Advanced_Stat v)
+        {
+            Advanced_Stat negated = new();
+
+            negated.DASH_DIST = -v.DASH_DIST;
+            negated.QSM = -v.QSM;
+            negated.SPA = -v.SPA;
+            negated.CRIT_RATE = -v.CRIT_RATE;
+            negated.CRIT_DMG = -v.CRIT_DMG;
+            negated.ECHO_RATE = -v.ECHO_RATE;
+            negated.ECHO_COUNT = -v.ECHO_COUNT;
+            negated.ECHO_DMG = -v.ECHO_DMG;
+            negated.FLAT_PEN = -v.FLAT_PEN;
+            negated.PERCENT_PEN = -v.PERCENT_PEN;
+            negated.ALL_DMG_AMP = -v.ALL_DMG_AMP;
+
+            return negated;
+        }
+
+        public static Advanced_Stat operator -(Advanced_Stat a, Advanced_Stat b)
+        {
+            return a + -b;
+        }
+    }
+
+    public partial class Character_Stats
+    {
+        public static Character_Stats operator+(Character_Stats a, Character_Stats b)
+        {
+            Character_Stats sum = new();
+            sum.BasicStats = a.BasicStats + b.BasicStats;
+            sum.AdvancedStats = a.AdvancedStats + b.AdvancedStats;
+            return sum;
+        }
+
+        public static Character_Stats operator -(Character_Stats v)
+        {
+            Character_Stats negated = new();
+            negated.BasicStats = -v.BasicStats;
+            negated.AdvancedStats = -v.AdvancedStats;
+            return negated;
+        }
+
+        public static Character_Stats operator - (Character_Stats a, Character_Stats b)
+        {
+            return a + -b;
+        }
+    }
+    #endregion
+
+    #region Constructors
+    public partial class Basic_Stat
+    {
+        public Basic_Stat(){}
+
+        //copy constructor
+        public Basic_Stat(Basic_Stat original)
+        {
+            HP = original.HP;
+            ATK = original.ATK;
+            DEF = original.DEF;
+            ATK_SPD = original.ATK_SPD;
+            MOV_SPD = original.MOV_SPD;
+        }
+    }
+
+    public partial class Advanced_Stat
+    {
+        public Advanced_Stat() { }
+        public Advanced_Stat(Advanced_Stat original)
+        {
+            DASH_DIST = original.DASH_DIST;
+            SPA = original.SPA;
+            QSM = original.QSM;
+            CRIT_RATE = original.CRIT_RATE;
+            CRIT_DMG = original.CRIT_DMG;
+            ECHO_RATE = original.ECHO_RATE;
+            ECHO_COUNT = original.ECHO_COUNT;
+            ECHO_DMG = original.ECHO_DMG;
+            FLAT_PEN = original.FLAT_PEN;
+            PERCENT_PEN = original.PERCENT_PEN;
+            ALL_DMG_AMP = original.ALL_DMG_AMP;
+        }
+    }
+
+    public partial class Character_Stats
+    {
+        public Character_Stats() { }
+        public Character_Stats(Character_Stats original){
+            BasicStats = new(original.BasicStats);
+            AdvancedStats = new(original.AdvancedStats);
+        }
+    }
+    #endregion
 }
 
