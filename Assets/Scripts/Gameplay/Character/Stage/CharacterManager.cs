@@ -16,11 +16,16 @@ public partial class CharacterManager : MonoBehaviour
     [SerializeField] private CharacterInstance character_2;
 
     private CharacterInstance current_character;
+    private CharacterEvents char_events;
 
     public void SwitchCharacters()
     {
-        bool turn = current_character == character_1;
-        current_character = turn ? character_2 : character_1;
+        var departing = current_character;
+        var entering = current_character == character_1 ? character_2 : character_1;
+
+        current_character = entering;
+        char_events.DoOnListeners<IOnCharacterSwitched>(i => i.OnCharacterSwitched(entering, departing));
+
         //character_1.gameObject.SetActive(turn);
         //character_2.gameObject.SetActive(!turn);
     }
@@ -33,12 +38,19 @@ public partial class CharacterManager
 {
     IntervalAction UpdateStats;
 
+    private void Awake()
+    {
+        char_events = GetComponent<CharacterEvents>();
+    }
+
     private void Start()
     {
         current_character = character_1;
         character_1.Load(debug_character_1, debug_c1_build);
 
         UpdateStats = new IntervalAction(0.1f, CalculateTotalStats);
+
+        char_events.DoOnListeners<IOnCharacterLoaded>(i => i.OnCharacterLoaded(character_1, character_2));
     }
 
     private void Update()

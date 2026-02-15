@@ -3931,6 +3931,7 @@ GameObject:
   - component: {fileID: 875307222}
   - component: {fileID: 875307225}
   - component: {fileID: 875307224}
+  - component: {fileID: 875307226}
   m_Layer: 0
   m_Name: Character1
   m_TagString: Untagged
@@ -4030,6 +4031,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &875307226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875307221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0363ef936e1f9544932f7c1eef30096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterController
 --- !u!1 &912637849
 GameObject:
   m_ObjectHideFlags: 0
@@ -7367,6 +7380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1778899860}
+  - component: {fileID: 1778899861}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -7390,6 +7404,20 @@ Transform:
   - {fileID: 1599392968}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1778899861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778899859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 640b9c5ba0005b644a322ff538528e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldManager
+  debug_prefab: {fileID: 0}
+  character: {fileID: 1006278131}
 --- !u!1 &1793331339
 GameObject:
   m_ObjectHideFlags: 0

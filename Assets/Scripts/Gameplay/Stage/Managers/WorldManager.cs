@@ -5,8 +5,6 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
 {
     
     [SerializeField] private GameObject debug_prefab;
-
-
     [SerializeField] private CharacterEvents character;
 
 
@@ -19,25 +17,21 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
     {
         var instance = Instantiate(prefab);
         instance.transform.position = pos == null ? Vector2.zero : pos.Value;
-        HookUpCharacterEvents(instance);
+        character.HookUpCharacterEvents(instance);
     }
 
     public void RegisterWorld()
     {
-        List<Transform> children = new(GetComponentsInChildren<Transform>());
-        children.RemoveAt(0);
-
-        foreach (Transform child in children)
+        List<Transform> scene = new(FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None));
+        Debug.Log(scene.Count);
+        foreach (Transform t in scene)
         {
-            HookUpCharacterEvents(child.gameObject);
+            Debug.Log(t.gameObject.name);
+            character.HookUpCharacterEvents(t.gameObject);
         }
-
     }
 
-    public void HookUpCharacterEvents(GameObject instance)
-    {
-        character.Register<IOnCharacterDefeated>(instance);
-    }
+
 
 }
 

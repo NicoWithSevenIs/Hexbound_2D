@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public interface IOnCharacterDefeated : ICharacterEvent 
-{
-    void OnCharacterDefeated();
-}
 
 
 public partial class CharacterInstance : MonoBehaviour, IDamageable
