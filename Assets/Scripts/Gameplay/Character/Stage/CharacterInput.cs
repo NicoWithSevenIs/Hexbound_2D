@@ -23,6 +23,7 @@ public partial class CharacterInput : MonoBehaviour, IOnCharacterSwitched, IOnCh
     {
 
     }
+
     public void Dash(InputAction.CallbackContext context)
     {
     }

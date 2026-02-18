@@ -50,7 +50,10 @@ public partial class CharacterManager
 
         UpdateStats = new IntervalAction(0.1f, CalculateTotalStats);
 
-        char_events.DoOnListeners<IOnCharacterLoaded>(i => i.OnCharacterLoaded(character_1, character_2));
+        
+        char_events.DoOnListeners<IOnCharacterLoaded>(i => {
+            i.OnCharacterLoaded(character_1, character_2);
+        });
     }
 
     private void Update()

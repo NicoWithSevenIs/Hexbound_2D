@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
 public interface ICharacterEvent {}
 
-public class CharacterEvents : MonoBehaviour
+//modify to get all components
+public partial class CharacterEvents : MonoBehaviour
 {
     private Dictionary<Type, List<GameObject>> listeners = new();
     
-    public void Register<TEvent>(GameObject listener) where TEvent : ICharacterEvent
+    private void Register<TEvent>(GameObject listener) where TEvent : ICharacterEvent
     {
         Type Key = typeof(TEvent);
 
@@ -25,11 +27,12 @@ public class CharacterEvents : MonoBehaviour
 
         if (!listeners[Key].Contains(listener))
         {
+            Debug.Log($"Adding {gameObject.name} to {Key.Name}");
             listeners[Key].Add(listener);
         }
     }
 
-    public void DoOnListeners<TEvent>(Action<TEvent> predicate) where TEvent : ICharacterEvent
+    public void DoOnListeners<TEvent>(Action<TEvent> executor) where TEvent : ICharacterEvent
     {
         Type Key = typeof(TEvent);
 
@@ -37,15 +40,20 @@ public class CharacterEvents : MonoBehaviour
 
         if (!contains_key)
         {
+            Debug.Log($"No key found for {Key.Name}");
             return;
         }
 
         Utilities.RemoveAll(listeners[Key], gameobject => gameobject == null);
 
+       
         foreach (var listener in listeners[Key])
         {
-            var component = listener.GetComponent<TEvent>();
-            predicate(component);
+            var components = listener.GetComponents<TEvent>();
+            for(int i =0; i < components.Length; i++)
+            {
+                executor(components[i]);
+            }
         }
     }
 
@@ -57,5 +65,16 @@ public class CharacterEvents : MonoBehaviour
         {
             listeners[Key].Clear();
         }
+    }
+}
+
+
+public partial class CharacterEvents
+{
+    public void HookUpCharacterEvents(GameObject instance)
+    {
+        Register<IOnCharacterDefeated>(instance);
+        Register<IOnCharacterLoaded>(instance);
+        Register<IOnCharacterSwitched>(instance);
     }
 }

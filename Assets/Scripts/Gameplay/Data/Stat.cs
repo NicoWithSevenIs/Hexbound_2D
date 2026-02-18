@@ -14,7 +14,6 @@ namespace Hexbound.Stats
         public float MOV_SPD = 0;
     }
 
-
     [Serializable]
     public partial class Advanced_Stat
     {
@@ -294,5 +293,6 @@ namespace Hexbound.Stats
         }
     }
     #endregion
+
 }
 

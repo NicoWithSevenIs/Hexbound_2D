@@ -8,8 +8,9 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
     [SerializeField] private CharacterEvents character;
 
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         RegisterWorld();
     }
 
@@ -23,10 +24,8 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
     public void RegisterWorld()
     {
         List<Transform> scene = new(FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None));
-        Debug.Log(scene.Count);
         foreach (Transform t in scene)
         {
-            Debug.Log(t.gameObject.name);
             character.HookUpCharacterEvents(t.gameObject);
         }
     }
