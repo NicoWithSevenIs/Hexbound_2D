@@ -36,7 +36,7 @@ public partial class CharacterManager : MonoBehaviour
 #region Lifecycle Methods
 public partial class CharacterManager
 {
-    IntervalAction UpdateStats;
+    Timer UpdateStats;
 
     private void Awake()
     {
@@ -48,7 +48,7 @@ public partial class CharacterManager
         current_character = character_1;
         character_1.Load(debug_character_1, debug_c1_build);
 
-        UpdateStats = new IntervalAction(0.1f, CalculateTotalStats);
+        UpdateStats = new Timer(0.1f, CalculateTotalStats);
 
         
         char_events.DoOnListeners<IOnCharacterLoaded>(i => {

@@ -294,5 +294,15 @@ namespace Hexbound.Stats
     }
     #endregion
 
+    [Serializable]
+    public class Hidden_Stat
+    {
+        public static readonly float FIXED_DASH_COOLDOWN = 1f;
+
+        public int MAX_JUMPS;
+
+        public float JUMP_FORCE;
+        public float DASH_FORCE;
+    }
 }
 

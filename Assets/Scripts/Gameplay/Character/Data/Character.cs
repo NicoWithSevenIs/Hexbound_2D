@@ -9,8 +9,3 @@ public class Character : Unit
 }
 
 
-public class Hidden_Stat
-{
-    public int MAX_JUMPS;
-    public float JUMP_FORCE;
-}

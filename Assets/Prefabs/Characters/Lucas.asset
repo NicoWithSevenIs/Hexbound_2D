@@ -21,6 +21,7 @@ MonoBehaviour:
     ATK_SPD: 1.1
     MOV_SPD: 60
   advanced_stats:
+    DASH_DIST: 1
     QSM: 1.2
     SPA: 1.2
     FLAT_PEN: 0
@@ -29,5 +30,9 @@ MonoBehaviour:
     CRIT_DMG: 1.75
     ECHO_RATE: 0.15
     ECHO_COUNT: 3
-    ECHO_DMG: 0.35
+    ECHO_DMG: 0.25
     ALL_DMG_AMP: 1
+  hidden_stats:
+    MAX_JUMPS: 2
+    JUMP_FORCE: 25
+    DASH_FORCE: 30

@@ -40,12 +40,6 @@ public partial class CharacterInstance : MonoBehaviour, IDamageable
         var events = GetComponentInParent<CharacterEvents>();
         events.DoOnListeners<IOnCharacterDefeated>(defeated => defeated.OnCharacterDefeated());
     }
-
-
-    private void Update()
-    {
-        ReceiveDamage(1, new(), null);
-    }
 }
 
 #region Getters

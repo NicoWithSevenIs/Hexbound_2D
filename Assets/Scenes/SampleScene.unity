@@ -3932,7 +3932,8 @@ GameObject:
   - component: {fileID: 875307225}
   - component: {fileID: 875307224}
   - component: {fileID: 875307226}
-  m_Layer: 0
+  - component: {fileID: 875307227}
+  m_Layer: 6
   m_Name: Character1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3980,9 +3981,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 7
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4043,6 +4044,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0363ef936e1f9544932f7c1eef30096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController
+  exclude_list:
+  - serializedVersion: 2
+    m_Bits: 64
+  jump_count: 0
+  ground_check_offset: 0.05
+  jump_count_reset_ignore_window: 0.15
+--- !u!114 &875307227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875307221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0efa087291e6acf4083644242a251137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character_State
+  can_move: 1
+  can_jump: 1
+  can_attack: 1
+  can_cast: 1
+  can_dash: 1
+  can_switch_paths: 1
+  can_tag_out: 1
 --- !u!1 &912637849
 GameObject:
   m_ObjectHideFlags: 0

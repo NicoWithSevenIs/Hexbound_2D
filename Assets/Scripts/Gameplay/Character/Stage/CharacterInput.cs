@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Event_Args = System.Collections.Generic.Dictionary<string, object>;
 
 [RequireComponent(typeof(CharacterManager))]
 public partial class CharacterInput : MonoBehaviour, IOnCharacterSwitched, IOnCharacterLoaded
@@ -19,13 +18,25 @@ public partial class CharacterInput : MonoBehaviour, IOnCharacterSwitched, IOnCh
     public void Switch_Path(InputAction.CallbackContext context)
     {
     }
+
     public void Jump(InputAction.CallbackContext context)
     {
-
+        if (context.canceled)
+        {
+            current_controller.SetJumpFlag();
+        }
     }
 
     public void Dash(InputAction.CallbackContext context)
     {
+        if (context.canceled)
+        {
+            var cursor_pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            var char_pos = current_controller.transform.position;
+            var dir = (cursor_pos - char_pos).normalized;
+            Debug.Log(dir);
+            current_controller.SetDashFlag(dir);
+        }
     }
 
     public void Basic_Attack(InputAction.CallbackContext context)
