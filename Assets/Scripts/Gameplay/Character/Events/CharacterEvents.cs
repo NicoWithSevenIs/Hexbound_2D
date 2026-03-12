@@ -27,7 +27,6 @@ public partial class CharacterEvents : MonoBehaviour
 
         if (!listeners[Key].Contains(listener))
         {
-            Debug.Log($"Adding {gameObject.name} to {Key.Name}");
             listeners[Key].Add(listener);
         }
     }
@@ -40,7 +39,6 @@ public partial class CharacterEvents : MonoBehaviour
 
         if (!contains_key)
         {
-            Debug.Log($"No key found for {Key.Name}");
             return;
         }
 

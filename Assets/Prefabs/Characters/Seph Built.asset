@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641e11117f13a74e90864b732b568d5, type: 3}
+  m_Name: Seph Built
+  m_EditorClassIdentifier: Assembly-CSharp::Character_Build
+  character_id: 0
+  level: 0
+  exp: 0
+  bonuses:
+    BasicStats:
+      HP: 100
+      ATK: 0
+      DEF: 0
+      ATK_SPD: 0
+      MOV_SPD: 0
+    AdvancedStats:
+      DASH_DIST: 0
+      QSM: 0.1
+      SPA: 0.1
+      FLAT_PEN: 0
+      PERCENT_PEN: 0
+      CRIT_RATE: 0.4
+      CRIT_DMG: 2.1
+      ECHO_RATE: 0.25
+      ECHO_COUNT: 4
+      ECHO_DMG: 0.3
+      ALL_DMG_AMP: 1

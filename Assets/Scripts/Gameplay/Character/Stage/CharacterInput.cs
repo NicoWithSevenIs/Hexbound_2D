@@ -2,28 +2,45 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterManager))]
-public partial class CharacterInput : MonoBehaviour, IOnCharacterSwitched, IOnCharacterLoaded
+public partial class CharacterInput : MonoBehaviour
 {
 
     [SerializeField] private float Hold_Sensitivity = 0.625f;
 
-    private CharacterController current_controller;
- 
+    private CharacterController character_controller;
+    private CharacterManager character_manager;
+
+    private void Awake()
+    {
+        character_manager = GetComponent<CharacterManager>();
+        character_controller = GetComponent<CharacterController>();
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         float axis = context.ReadValue<float>();
-        current_controller.SetMovementAxis(axis);
+        character_controller.SetMovementAxis(axis);
     }
 
     public void Switch_Path(InputAction.CallbackContext context)
     {
+
+    }
+
+    public void Switch_Characters(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            Debug.Log("switching characters");
+            character_manager.SwitchCharacters();
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.canceled)
         {
-            current_controller.SetJumpFlag();
+            character_controller.SetJumpFlag();
         }
     }
 
@@ -32,10 +49,9 @@ public partial class CharacterInput : MonoBehaviour, IOnCharacterSwitched, IOnCh
         if (context.canceled)
         {
             var cursor_pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            var char_pos = current_controller.transform.position;
+            var char_pos = character_controller.transform.position;
             var dir = (cursor_pos - char_pos).normalized;
-            Debug.Log(dir);
-            current_controller.SetDashFlag(dir);
+            character_controller.SetDashFlag(dir);
         }
     }
 
@@ -68,19 +84,3 @@ public partial class CharacterInput : MonoBehaviour, IOnCharacterSwitched, IOnCh
  
 }
 
-#region Interface
-
-public partial class CharacterInput
-{
-    public void OnCharacterSwitched(CharacterInstance entering, CharacterInstance departing)
-    {
-        current_controller = entering.GetComponent<CharacterController>();
-    }
-    public void OnCharacterLoaded(CharacterInstance character1, CharacterInstance character2)
-    {
-        Debug.Log("Loaded");
-        current_controller = character1.GetComponent<CharacterController>();
-    }
-}
-
-#endregion

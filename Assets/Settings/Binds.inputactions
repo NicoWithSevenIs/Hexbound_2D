@@ -95,6 +95,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Switch_Characters",
+                    "type": "Button",
+                    "id": "dd09c0dc-b714-4921-970b-949e347f5299",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -167,7 +176,7 @@
                 {
                     "name": "",
                     "id": "a769af31-899e-469b-8ec4-cc92a653e95b",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -251,6 +260,17 @@
                     "action": "Switch_Paths",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1f98a4e5-7b3d-4abf-ba92-ef74a4a34005",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch_Characters",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

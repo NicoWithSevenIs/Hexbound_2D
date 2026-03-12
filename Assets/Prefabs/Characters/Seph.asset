@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17057d18799ec4eb14654a2c156bd5, type: 3}
+  m_Name: Seph
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  id: 1
+  unit_name: Seph Aoki
+  base_stats:
+    HP: 125
+    ATK: 7
+    DEF: 24
+    ATK_SPD: 0.9
+    MOV_SPD: 65
+  advanced_stats:
+    DASH_DIST: 1
+    QSM: 1.1
+    SPA: 1.1
+    FLAT_PEN: 0
+    PERCENT_PEN: 0
+    CRIT_RATE: 0.05
+    CRIT_DMG: 1.6
+    ECHO_RATE: 0.05
+    ECHO_COUNT: 3
+    ECHO_DMG: 0.2
+    ALL_DMG_AMP: 1
+  hidden_stats:
+    MAX_JUMPS: 1
+    JUMP_FORCE: 10
+    DASH_FORCE: 35

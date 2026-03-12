@@ -1,36 +1,70 @@
 using Hexbound.Stats;
 using System.Data;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.Events;
 
 public partial class CharacterManager : MonoBehaviour
 {
 
+    /*
+        [TO-DO]: After Character Ability System
+            -> Dynamic Party Modification (Character joins in the middle of the stage.
+    */
+
     #region Debug
+    [Header("Debug")]
     [SerializeField] private Character debug_character_1;
     [SerializeField] private Character_Build debug_c1_build;
+
+    [SerializeField] private Character debug_character_2;
+    [SerializeField] private Character_Build debug_c2_build;
+
+    [SerializeField] private bool load_c1_only = false;
     #endregion
 
     [Header("References")]
     [SerializeField] private CharacterInstance character_1;
     [SerializeField] private CharacterInstance character_2;
 
+    private bool has_character_2;
     private CharacterInstance current_character;
     private CharacterEvents char_events;
 
     public void SwitchCharacters()
     {
+        if (!has_character_2)
+        {
+            return;
+        }
+
         var departing = current_character;
         var entering = current_character == character_1 ? character_2 : character_1;
-
         current_character = entering;
-        char_events.DoOnListeners<IOnCharacterSwitched>(i => i.OnCharacterSwitched(entering, departing));
 
-        //character_1.gameObject.SetActive(turn);
-        //character_2.gameObject.SetActive(!turn);
+        character_1.gameObject.SetActive(character_1 == current_character);
+        character_2.gameObject.SetActive(character_2 == current_character);
+
+        char_events.DoOnListeners<IOnCharacterSwitched>(i => i.OnCharacterSwitched(entering, departing));
     }
 
+    private void InitializeCharacters()
+    {
+        current_character = character_1;
 
+        character_1.Load(debug_character_1, debug_c1_build);
+        
+        if (has_character_2)
+        {
+            character_2.Load(debug_character_2, debug_c2_build);
+        }
+
+        character_1.gameObject.SetActive(character_1 == current_character);
+        character_2.gameObject.SetActive(character_2 == current_character);
+
+        void LoadCharacter(IOnCharacterLoaded i) => i.OnCharacterLoaded(character_1, character_2);
+        char_events.DoOnListeners<IOnCharacterLoaded>(LoadCharacter);
+    }
 }
 
 #region Lifecycle Methods
@@ -45,15 +79,9 @@ public partial class CharacterManager
 
     private void Start()
     {
-        current_character = character_1;
-        character_1.Load(debug_character_1, debug_c1_build);
-
+        has_character_2 = !load_c1_only;
+        InitializeCharacters();
         UpdateStats = new Timer(0.1f, CalculateTotalStats);
-
-        
-        char_events.DoOnListeners<IOnCharacterLoaded>(i => {
-            i.OnCharacterLoaded(character_1, character_2);
-        });
     }
 
     private void Update()

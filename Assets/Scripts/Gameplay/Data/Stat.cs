@@ -141,7 +141,6 @@ namespace Hexbound.Stats
     }
     #endregion
 
-
     #region Stat Operators
     public partial class Basic_Stat
     {
