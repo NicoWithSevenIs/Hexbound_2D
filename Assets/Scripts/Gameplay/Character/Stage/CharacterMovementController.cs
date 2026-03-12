@@ -2,7 +2,7 @@ using Hexbound.Stats;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class CharacterController : MonoBehaviour, IOnCharacterLoaded, IOnCharacterSwitched
+public partial class CharacterMovementController : MonoBehaviour
 {
 
     /*
@@ -13,15 +13,17 @@ public partial class CharacterController : MonoBehaviour, IOnCharacterLoaded, IO
 
     private Rigidbody2D body;
     private CapsuleCollider2D coll;
+
+    private CharacterInstance ch;
     private CharacterState state;
 
     [SerializeField] private List<LayerMask> exclude_list;
 
     private void Awake()
     {
-        body = GetComponent<Rigidbody2D>();
-        coll = GetComponent<CapsuleCollider2D>();
-        current_character = GetComponent<CharacterInstance>();
+        body = GetComponentInParent<Rigidbody2D>();
+        coll = GetComponentInParent<CapsuleCollider2D>();
+        ch = GetComponent<CharacterInstance>();
         state = GetComponent<CharacterState>();
     }
 
@@ -29,7 +31,7 @@ public partial class CharacterController : MonoBehaviour, IOnCharacterLoaded, IO
     {
         if (state.can_move)
         {
-            var move_spd = current_character.CurrentStats.BasicStats.MOV_SPD;
+            var move_spd = ch.CurrentStats.BasicStats.MOV_SPD;
             if (is_walking)
                 move_spd *= walk_multiplier;
             body.AddForce(new Vector2(movement_axis * move_spd, 0));
@@ -37,7 +39,7 @@ public partial class CharacterController : MonoBehaviour, IOnCharacterLoaded, IO
         
         if (will_jump)
         {
-            var jump_force = current_character.CharacterData.hidden_stats.JUMP_FORCE;
+            var jump_force = ch.CharacterData.hidden_stats.JUMP_FORCE;
             body.AddForce(new Vector2(0, jump_force), ForceMode2D.Impulse);
             jump_count++;
             will_jump = false;
@@ -45,7 +47,7 @@ public partial class CharacterController : MonoBehaviour, IOnCharacterLoaded, IO
 
         if (will_dash)
         {
-            var dash_force = current_character.CharacterData.hidden_stats.DASH_FORCE;
+            var dash_force = ch.CharacterData.hidden_stats.DASH_FORCE;
             if (body.linearVelocity.x != 0 && IsGrounded())
             {
                 dash_direction.x = Mathf.Sign(body.linearVelocity.x);
@@ -67,7 +69,7 @@ public partial class CharacterController : MonoBehaviour, IOnCharacterLoaded, IO
 }
 
 #region Input Receiver
-public partial class CharacterController
+public partial class CharacterMovementController
 {
 
 
@@ -103,7 +105,7 @@ public partial class CharacterController
 
         bool grounded = IsGrounded();
 
-        var max_jumps = current_character.CharacterData.hidden_stats.MAX_JUMPS;
+        var max_jumps = ch.CharacterData.hidden_stats.MAX_JUMPS;
         if (grounded || !grounded && jump_count < max_jumps)
         {
             will_jump = true;
@@ -137,21 +139,4 @@ public partial class CharacterController
 
      
 }
-#endregion
-
-#region Interface
-
-public partial class CharacterController
-{
-    private CharacterInstance current_character;
-    public void OnCharacterSwitched(CharacterInstance entering, CharacterInstance departing)
-    {
-        current_character = entering;
-    }
-    public void OnCharacterLoaded(CharacterInstance character1, CharacterInstance character2)
-    {
-        current_character = character1;
-    }
-}
-
 #endregion
