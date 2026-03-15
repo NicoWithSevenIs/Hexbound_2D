@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterInstance))]
 public abstract class CharacterController : MonoBehaviour
 {
     private static float GROUND_CHECK_OFFSET = 0.5f;

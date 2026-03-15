@@ -226,5 +226,25 @@ namespace Hexbound.Stats
         public float JUMP_FORCE;
         public float DASH_FORCE;
     }
+
+    public enum STAT
+    {
+        HP,
+        ATK,
+        DEF,
+        MOVE_SPEED,
+        ATK_SPEED,
+        DASH_DIST,
+        SUSTAINED_PATH_AMPLIFICATION,
+        QUICK_SWAP_MULTIPLIER,
+        CRIT_RATE,
+        CRIT_DMG,
+        ECHO_RATE,
+        ECHO_COUNT,
+        ECHO_DMG,
+        FLAT_PEN,
+        PERCENT_PEN,
+        ALL_DMG_AMP,
+    }
 }
 

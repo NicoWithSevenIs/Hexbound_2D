@@ -36,3 +36,14 @@ MonoBehaviour:
     MAX_JUMPS: 2
     JUMP_FORCE: 25
     DASH_FORCE: 30
+  grounded_basic:
+  - action_name: 1st-Hit
+    multipliers:
+    - value: 1.3
+      stat: 14
+    - value: 0.12
+      stat: 9
+  grounded_heavy: []
+  aerial_basic: []
+  aerial_heavy: []
+  plunge: []

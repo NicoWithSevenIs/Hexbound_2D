@@ -18,7 +18,7 @@ MonoBehaviour:
   bonuses:
     BasicStats:
       HP: 50
-      ATK: 0
+      ATK: 15
       DEF: 0
       ATK_SPD: 0
       MOV_SPD: 0

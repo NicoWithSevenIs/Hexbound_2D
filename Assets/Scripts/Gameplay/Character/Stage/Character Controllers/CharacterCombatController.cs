@@ -1,8 +1,11 @@
 using UnityEngine;
 
+
 public class CharacterCombatController : CharacterController
 {
+   
     [SerializeField] private float global_min_hold_duration = 0.6f;
+
 
     public void TriggerBasicAttack(float input_duration)
     {
@@ -19,7 +22,7 @@ public class CharacterCombatController : CharacterController
                 var damageable =  coll.GetComponent<IDamageable>();
                 if(damageable != null)
                 {
-                    damageable.ReceiveDamage(5, null, null);
+                    damageable.ReceiveDamage(ch.CurrentStats.BasicStats.ATK, null, ch);
                 }
             }
             
