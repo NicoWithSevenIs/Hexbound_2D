@@ -12,16 +12,16 @@ public class Timer
     private bool is_running = true;
     private bool loops = false;
 
-    public Timer() 
-    { 
-        is_running = false;
-    }
-
     public Timer(float time, Action on_elapsed_callback, bool loops = true)
     {
         this.time = time;
         this.on_elapsed_callback = on_elapsed_callback;
         this.loops = loops;
+    }
+
+    public Timer(float time)
+    {
+        is_running = false;
     }
 
     public void Tick()

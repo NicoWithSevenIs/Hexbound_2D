@@ -91,13 +91,7 @@ public partial class CharacterManager
 
     private void CalculateTotalStats()
     {
-        var base_snapshot = Stat_Utilities.Snapshot(current_character.BaseStats);
-        var build_snapshot = Stat_Utilities.Snapshot(current_character.BuildStats);
-        var current_snapshot = Stat_Utilities.Snapshot(current_character.CurrentStats);
-
-        OnBaseStatsUpdated?.Invoke(base_snapshot);
-        OnBuildStatsUpdated?.Invoke(build_snapshot);
-        OnBattleStatsUpdated?.Invoke(current_snapshot, build_snapshot);
+        OnStatsUpdating?.Invoke(current_character.BaseStats, current_character.BuildStats, current_character.CurrentStats);
     }
 
 }
@@ -108,9 +102,7 @@ public partial class CharacterManager
 {
     [Header("Stat Calculation Events")]
     [Space]
-    public UnityEvent<CharacterStat_Snapshot> OnBaseStatsUpdated;
-    public UnityEvent<CharacterStat_Snapshot> OnBuildStatsUpdated;
-    public UnityEvent<CharacterStat_Snapshot, CharacterStat_Snapshot> OnBattleStatsUpdated;
+    public UnityEvent<Character_Stats, Character_Stats, Character_Stats> OnStatsUpdating;
 }
 #endregion
 

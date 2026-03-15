@@ -47,9 +47,8 @@ public partial class CharacterInstance
 {
     public Character CharacterData { get => character_data; }
     public Character_Build Build { get => char_build; }
-    public Character_Stats BaseStats { get => base_stats; }
-    public Character_Stats BuildStats { get => build_stats; }
-    public Character_Stats CurrentStats { get => current_stats; }
-
+    public Character_Stats BaseStats { get => new(base_stats); }
+    public Character_Stats BuildStats { get => new(build_stats); }
+    public Character_Stats CurrentStats { get => new(current_stats); }
 }
 #endregion

@@ -2,7 +2,7 @@ using Hexbound.Stats;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class CharacterMovementController : MonoBehaviour
+public partial class CharacterMovementController : CharacterController
 {
 
     /*
@@ -10,22 +10,6 @@ public partial class CharacterMovementController : MonoBehaviour
             -> Anti-gravity effects for jump and dash
             -> Dash cooldown 
     */
-
-    private Rigidbody2D body;
-    private CapsuleCollider2D coll;
-
-    private CharacterInstance ch;
-    private CharacterState state;
-
-    [SerializeField] private List<LayerMask> exclude_list;
-
-    private void Awake()
-    {
-        body = GetComponentInParent<Rigidbody2D>();
-        coll = GetComponentInParent<CapsuleCollider2D>();
-        ch = GetComponent<CharacterInstance>();
-        state = GetComponent<CharacterState>();
-    }
 
     private void FixedUpdate()
     {
@@ -63,6 +47,14 @@ public partial class CharacterMovementController : MonoBehaviour
         {
             jump_count = 0;
         }
+
+        if(movement_axis != 0)
+        {
+            //switch this to sprite
+            var scale = transform.localScale;
+            scale.x = Mathf.Sign(movement_axis) * Mathf.Abs(scale.x);
+            transform.localScale = scale;
+        }
     }
 
 
@@ -71,8 +63,6 @@ public partial class CharacterMovementController : MonoBehaviour
 #region Input Receiver
 public partial class CharacterMovementController
 {
-
-
 
     #region attributes
 
@@ -84,7 +74,6 @@ public partial class CharacterMovementController
     //Jump
     [SerializeField] private bool will_jump = false;
     [SerializeField] private int jump_count = 0;
-    [SerializeField] private float ground_check_offset = 0.5f;
 
     //Dash
     private bool will_dash = false;
@@ -125,18 +114,6 @@ public partial class CharacterMovementController
         }
     }
 
-    public bool IsGrounded()
-    {
-        LayerMask excluded = 0;
-
-        foreach(LayerMask m in exclude_list)
-        {
-            excluded |= m;
-        }
-
-        return Physics2D.CapsuleCast(coll.bounds.center, coll.size, coll.direction, 0, Vector2.down, ground_check_offset, ~excluded);
-    }
-
-     
+   
 }
 #endregion

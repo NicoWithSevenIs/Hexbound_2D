@@ -5,7 +5,7 @@ using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class UI_StatsPage : MonoBehaviour
+public class UI_StatsPage : MonoBehaviour, IOnCharacterLoaded, IOnCharacterSwitched
 {
     #region UI NAV
 
@@ -22,6 +22,7 @@ public class UI_StatsPage : MonoBehaviour
 
 
     [Header("References")]
+    [SerializeField] private TextMeshProUGUI character_name;
     [SerializeField] private List<ButtonItem> buttons_list;
     [SerializeField] private TextMeshProUGUI stat_context;
 
@@ -41,25 +42,25 @@ public class UI_StatsPage : MonoBehaviour
 
     #endregion
 
-    public void DisplayBaseStats(CharacterStat_Snapshot base_snapshot)
+    public void OnStatsUpdating(Character_Stats base_stats, Character_Stats build_stats, Character_Stats current_stats)
     {
-        if (mode != "Base") return;
-        stat_context.text = "Base Stats";
-        DisplayStats(base_snapshot);
+        stat_context.text = $"{mode} Stats";
+        switch (mode)
+        {
+            case "Base": DisplayStats(base_stats); break;
+            case "Build": DisplayStats(build_stats); break; ;
+            case "Battle": DisplayStatsRatio(current_stats, build_stats); break;
+        }
     }
 
-    public void DisplayBuildStats(CharacterStat_Snapshot build_snapshot)
+    public void OnCharacterLoaded(CharacterInstance character1, CharacterInstance character2)
     {
-        if (mode != "Build") return;
-        stat_context.text = "Build Stats";
-        DisplayStats(build_snapshot);
+        character_name.text = character1.CharacterData.unit_name;
+   
     }
-
-    public void DisplayBattleStats(CharacterStat_Snapshot current_snapshot, CharacterStat_Snapshot total_snapshot)
+    public void OnCharacterSwitched(CharacterInstance entering, CharacterInstance departing)
     {
-        if (mode != "Battle") return;
-        stat_context.text = "Battle Stats";
-        DisplayStatsRatio(current_snapshot, total_snapshot);
+        character_name.text = entering.CharacterData.unit_name;
     }
 
     #region Lifecycle Methods
@@ -103,10 +104,10 @@ public class UI_StatsPage : MonoBehaviour
     [SerializeField] private TextMeshProUGUI percent_pen;
     [SerializeField] private TextMeshProUGUI all_dmg_amp;
 
-    private void DisplayStats(CharacterStat_Snapshot snapshot)
+    private void DisplayStats(Character_Stats snapshot)
     {
-        var bss = snapshot.basic_snapshot;
-        var ass = snapshot.advanced_snapshot;
+        var bss = snapshot.BasicStats;
+        var ass = snapshot.AdvancedStats;
 
         // Basic stats
         hp.text = bss.HP.ToString();
@@ -133,12 +134,12 @@ public class UI_StatsPage : MonoBehaviour
         all_dmg_amp.text = $"{ass.ALL_DMG_AMP * 100}%";
     }
 
-    private void DisplayStatsRatio(CharacterStat_Snapshot current, CharacterStat_Snapshot total)
+    private void DisplayStatsRatio(Character_Stats current, Character_Stats total)
     {
-        var c_bss = current.basic_snapshot;
-        var c_ass = current.advanced_snapshot;
-        var t_bss = total.basic_snapshot;
-        var t_ass = total.advanced_snapshot;
+        var c_bss = current.BasicStats;
+        var c_ass = current.AdvancedStats;
+        var t_bss = total.BasicStats;
+        var t_ass = total.AdvancedStats;
 
         // Basic stats
         hp.text = $"{c_bss.HP}/{t_bss.HP}";
@@ -164,5 +165,6 @@ public class UI_StatsPage : MonoBehaviour
 
         all_dmg_amp.text = $"{c_ass.ALL_DMG_AMP * 100}%/{t_ass.ALL_DMG_AMP * 100}%";
     }
+
     #endregion
 }
