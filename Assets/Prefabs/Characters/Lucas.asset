@@ -43,6 +43,8 @@ MonoBehaviour:
       stat: 14
     - value: 0.12
       stat: 9
+    - value: 0.12
+      stat: 1
   grounded_heavy: []
   aerial_basic: []
   aerial_heavy: []
