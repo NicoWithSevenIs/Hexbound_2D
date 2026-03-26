@@ -69,38 +69,9 @@ namespace Hexbound.Stats
     }
 
     [Serializable]
-    public class Stats
+    [SerializedDictionary("Stat", "Value")]
+    public class Stats: SerializedDictionary<StatType, float>
     {
-
-        [SerializeField]
-        [SerializedDictionary("Stat", "Value")]
-        private SerializedDictionary<StatType, float> stats = new();
-
-        public float this[StatType stat]
-        {
-            get => stats.ContainsKey(stat) ? stats[stat] : 0;
-            set 
-            {
-                if (stats.ContainsKey(stat))
-                {
-                    stats[stat] = value;
-                }     
-            }
-        }
-
-
-        #region Constructors
-        public Stats() { }
-        public Stats(Stats other)
-        {
-            this.stats = new(other.stats);
-        }
-
-
-
-
-        #endregion Constructors
-
         #region Stat Operators
 
         public static Stats operator +(Stats a, Stats b)
@@ -109,7 +80,7 @@ namespace Hexbound.Stats
             var stats = Enum.GetValues(typeof(StatType));
             foreach (StatType stat in stats)
             {
-                if (a.stats.ContainsKey(stat) && b.stats.ContainsKey(stat))
+                if (a.ContainsKey(stat) && b.ContainsKey(stat))
                 {
                     sum[stat] = a[stat] + b[stat];
                 }

@@ -14,9 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Unit
   id: 0
   unit_name: 
-  base_stats:
-    HP: 100
-    ATK: 0
-    DEF: 0
-    ATK_SPD: 0
-    MOV_SPD: 0
+  stats:
+    stats:
+      _serializedList:
+      - Key: 0
+        Value: 0
+      - Key: 1
+        Value: 0
+      - Key: 2
+        Value: 0
+      - Key: 3
+        Value: 0
