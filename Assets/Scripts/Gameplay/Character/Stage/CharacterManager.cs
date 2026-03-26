@@ -102,7 +102,7 @@ public partial class CharacterManager
 {
     [Header("Stat Calculation Events")]
     [Space]
-    public UnityEvent<Character_Stats, Character_Stats, Character_Stats> OnStatsUpdating;
+    public UnityEvent<Stats, Stats, Stats> OnStatsUpdating;
 }
 #endregion
 

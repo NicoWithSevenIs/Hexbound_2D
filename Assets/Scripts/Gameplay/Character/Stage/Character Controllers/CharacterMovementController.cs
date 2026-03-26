@@ -15,7 +15,7 @@ public partial class CharacterMovementController : CharacterController
     {
         if (state.can_move)
         {
-            var move_spd = ch.CurrentStats.BasicStats.MOV_SPD;
+            var move_spd = ch.CurrentStats[StatType.MOVE_SPEED];
             if (is_walking)
                 move_spd *= walk_multiplier;
             body.AddForce(new Vector2(movement_axis * move_spd, 0));
@@ -23,7 +23,7 @@ public partial class CharacterMovementController : CharacterController
         
         if (will_jump)
         {
-            var jump_force = ch.CharacterData.hidden_stats.JUMP_FORCE;
+            var jump_force = ch.CurrentStats[StatType.JUMP_FORCE];
             body.AddForce(new Vector2(0, jump_force), ForceMode2D.Impulse);
             jump_count++;
             will_jump = false;
@@ -31,7 +31,7 @@ public partial class CharacterMovementController : CharacterController
 
         if (will_dash)
         {
-            var dash_force = ch.CharacterData.hidden_stats.DASH_FORCE;
+            var dash_force = ch.CurrentStats[StatType.DASH_FORCE];
             if (body.linearVelocity.x != 0 && IsGrounded())
             {
                 dash_direction.x = Mathf.Sign(body.linearVelocity.x);
@@ -94,7 +94,7 @@ public partial class CharacterMovementController
 
         bool grounded = IsGrounded();
 
-        var max_jumps = ch.CharacterData.hidden_stats.MAX_JUMPS;
+        var max_jumps = ch.CurrentStats[StatType.MAX_JUMPS];
         if (grounded || !grounded && jump_count < max_jumps)
         {
             will_jump = true;

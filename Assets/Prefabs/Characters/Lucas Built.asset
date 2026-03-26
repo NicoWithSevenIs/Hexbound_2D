@@ -13,24 +13,60 @@ MonoBehaviour:
   m_Name: Lucas Built
   m_EditorClassIdentifier: Assembly-CSharp::Character_Build
   character_id: 0
-  level: 0
-  exp: 0
+  cumulative_exp: 0
   bonuses:
-    BasicStats:
-      HP: 50
-      ATK: 15
-      DEF: 0
-      ATK_SPD: 0
-      MOV_SPD: 0
-    AdvancedStats:
-      DASH_DIST: 0.2
-      QSM: 1
-      SPA: 1
-      FLAT_PEN: 0
-      PERCENT_PEN: 0
-      CRIT_RATE: 0.5
-      CRIT_DMG: 0.75
-      ECHO_RATE: 0.3
-      ECHO_COUNT: 4
-      ECHO_DMG: 0.2
-      ALL_DMG_AMP: 0.15
+    _serializedList:
+    - Key: 0
+      Value: 100
+    - Key: 1
+      Value: 0
+    - Key: 2
+      Value: 0
+    - Key: 3
+      Value: 20
+    - Key: 4
+      Value: 0
+    - Key: 5
+      Value: 0
+    - Key: 6
+      Value: 0
+    - Key: 7
+      Value: 0
+    - Key: 8
+      Value: 0
+    - Key: 9
+      Value: 0
+    - Key: 10
+      Value: 0
+    - Key: 11
+      Value: 0
+    - Key: 12
+      Value: 0
+    - Key: 13
+      Value: 0
+    - Key: 14
+      Value: 0
+    - Key: 15
+      Value: 0
+    - Key: 16
+      Value: 0
+    - Key: 17
+      Value: 0
+    - Key: 18
+      Value: 0
+    - Key: 19
+      Value: 0
+    - Key: 20
+      Value: 0
+    - Key: 21
+      Value: 0
+    - Key: 22
+      Value: 0
+    - Key: 23
+      Value: 0
+    - Key: 24
+      Value: 0
+    - Key: 25
+      Value: 0
+    - Key: 26
+      Value: 0

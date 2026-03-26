@@ -7,13 +7,13 @@ using UnityEngine.Events;
 
 public partial class UnitInstance : MonoBehaviour, IDamageable
 {
-    protected Basic_Stat base_stats;
-    protected Basic_Stat current_stats;
+    private Unit unit;
+    protected Stats current_stats;
 
     public void Load(Unit u)
     {
-        base_stats = u.base_stats;
-        current_stats = new(u.base_stats);
+        unit = u;
+        current_stats = new(u.stats);
     }
 
     public Unit debug_unit;
@@ -25,15 +25,15 @@ public partial class UnitInstance : MonoBehaviour, IDamageable
 
     public virtual void ReceiveDamage(float dmg, List<Damage_Tag> damage_tags, IDamageable source)
     {
-        if (current_stats.HP == 0)
+        if (current_stats[StatType.HP] == 0)
         {
             return;
         }
 
-        current_stats.HP = Mathf.Max(current_stats.HP - dmg, 0);
-        OnDamageTaken?.Invoke(dmg, current_stats.HP, base_stats.HP);
+        current_stats[StatType.HP] = Mathf.Max(current_stats[StatType.HP] - dmg, 0);
+        OnDamageTaken?.Invoke(dmg, current_stats[StatType.HP], unit.stats[StatType.HP]);
 
-        if (current_stats.HP == 0)
+        if (current_stats[StatType.HP] == 0)
         {
             Destroy(gameObject); //temp
         }
@@ -45,6 +45,6 @@ public partial class UnitInstance : MonoBehaviour, IDamageable
 
 public partial class UnitInstance
 {
-    public Basic_Stat BaseStats { get => base_stats; }
-    public Basic_Stat CurrentStats { get => current_stats; }
+    public Stats BaseStats { get => new(unit.stats); }
+    public Stats CurrentStats { get => current_stats; }
 }

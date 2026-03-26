@@ -1,3 +1,4 @@
+using Hexbound.Stats;
 using UnityEngine;
 
 
@@ -22,7 +23,7 @@ public class CharacterCombatController : CharacterController
                 var damageable =  coll.GetComponent<IDamageable>();
                 if(damageable != null)
                 {
-                    damageable.ReceiveDamage(ch.CurrentStats.BasicStats.ATK, null, ch);
+                    damageable.ReceiveDamage(ch.CurrentStats[StatType.ATK], null, ch);
                 }
             }
             

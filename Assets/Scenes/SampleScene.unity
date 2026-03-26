@@ -1401,7 +1401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &350063528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1481,7 +1481,7 @@ MonoBehaviour:
   exclude_list:
   - serializedVersion: 2
     m_Bits: 64
-  character_hold_duration: 0.6
+  global_min_hold_duration: 0.6
 --- !u!1 &387667303
 GameObject:
   m_ObjectHideFlags: 0
@@ -4210,7 +4210,7 @@ MonoBehaviour:
   exclude_list:
   - serializedVersion: 2
     m_Bits: 64
-  character_hold_duration: 0.6
+  global_min_hold_duration: 0.6
 --- !u!1 &912637849
 GameObject:
   m_ObjectHideFlags: 0

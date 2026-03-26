@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Hexbound.Stats
 {
-
     public enum StatType
     {
         //Basic
@@ -69,10 +68,19 @@ namespace Hexbound.Stats
     }
 
     [Serializable]
-    [SerializedDictionary("Stat", "Value")]
     public class Stats: SerializedDictionary<StatType, float>
     {
         #region Stat Operators
+
+        public Stats() { }
+
+        public Stats(Stats to_copy)
+        {
+            foreach (var (stat, value) in to_copy)
+            {
+                this[stat] = value;
+            }
+        }
 
         public static Stats operator +(Stats a, Stats b)
         {
@@ -102,8 +110,6 @@ namespace Hexbound.Stats
         {
             return a + -b;
         }
-
-        
         #endregion
     }
 
