@@ -11,6 +11,6 @@ public class Unit: ScriptableObject
 
     [Space]
     [Header("Stats")]
-    public Basic_Stat base_stats;
+    public Stats stats;
 }
 
