@@ -7,6 +7,7 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
     [SerializeField] private GameObject debug_prefab;
     [SerializeField] private CharacterEvents character;
 
+    [SerializeField] private List<UnitInstance> unit_list = new();
 
     protected override void Awake()
     {
@@ -27,6 +28,11 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
         foreach (Transform t in scene)
         {
             character.HookUpCharacterEvents(t.gameObject);
+            var unit_instance = t.GetComponent<UnitInstance>();
+            if (unit_instance)
+            {
+                unit_list.Add(unit_instance);
+            }
         }
     }
 

@@ -23,11 +23,11 @@ MonoBehaviour:
     - Key: 2
       Value: 30
     - Key: 3
-      Value: 40
+      Value: 80
     - Key: 4
       Value: 0
     - Key: 5
-      Value: 30
+      Value: 3
     - Key: 6
       Value: 50
     - Key: 7
@@ -71,8 +71,20 @@ MonoBehaviour:
     - Key: 26
       Value: 0
   action_multipliers:
-    grounded_basic: []
-    grounded_heavy: []
-    aerial_basic: []
+    grounded_basic:
+    - stat: 0
+      value: 0
+    grounded_heavy:
+    - stat: 0
+      value: 0
+    - stat: 0
+      value: 0
+    aerial_basic:
+    - stat: 0
+      value: 0
+    - stat: 0
+      value: 0
+    - stat: 0
+      value: 0
     aerial_heavy: []
     plunge: []

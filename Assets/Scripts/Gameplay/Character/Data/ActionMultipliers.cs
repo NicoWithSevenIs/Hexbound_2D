@@ -13,7 +13,6 @@ public class Multiplier
 [Serializable]
 public class ActionMultipliers
 {
-    [Header("Action Multipliers")]
     public List<Multiplier> grounded_basic;
     public List<Multiplier> grounded_heavy;
     public List<Multiplier> aerial_basic;

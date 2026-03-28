@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public partial class UnitInstance : MonoBehaviour, IDamageable
 {
     private Unit unit;
+    private UnitState state;
     protected Stats current_stats;
 
     public void Load(Unit u)
