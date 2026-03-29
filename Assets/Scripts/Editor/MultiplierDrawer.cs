@@ -25,7 +25,6 @@ public class MultiplierDrawer : PropertyDrawer
         int indent = EditorGUI.indentLevel;
         EditorGUI.indentLevel = 0;
 
-        // Divide the rect into four equal parts
         float width = position.width;
 
         float stat_xpos = position.x;

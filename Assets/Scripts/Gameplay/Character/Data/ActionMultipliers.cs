@@ -10,12 +10,3 @@ public class Multiplier
     public float value;
 }
 
-[Serializable]
-public class ActionMultipliers
-{
-    public List<Multiplier> grounded_basic;
-    public List<Multiplier> grounded_heavy;
-    public List<Multiplier> aerial_basic;
-    public List<Multiplier> aerial_heavy;
-    public List<Multiplier> plunge;
-}

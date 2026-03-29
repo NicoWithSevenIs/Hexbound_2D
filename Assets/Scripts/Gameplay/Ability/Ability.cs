@@ -1,27 +1,28 @@
+using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public interface PassiveAbilityComponent 
+/*
+    Future Case:
+    -> Multiplier Modification
+ 
+ */
+public class Ability: MonoBehaviour
 {
-    public void Initialize();
-}
-public interface ActiveAbilityComponent {
-    public void TriggerEffect();
-}
 
-#region Effect Trigger
+    [SerializeField]
+    [SerializedDictionary("Action Name", "Multipliers")]
+    private readonly SerializedDictionary<string, List<Multiplier>> ability_multipliers;
 
-public partial class Ability: MonoBehaviour
-{
-    private List<PassiveAbilityComponent> passives;
-    private List<ActiveAbilityComponent> actives;
+    private List<Ability_PassiveComponent> passives;
+    private List<Ability_ActiveComponent> actives;
 
     private void Start()
     {
-        passives = new(GetComponentsInChildren<PassiveAbilityComponent>());
-        actives = new(GetComponentsInChildren<ActiveAbilityComponent>());
+        passives = new(GetComponentsInChildren<Ability_PassiveComponent>());
+        actives = new(GetComponentsInChildren<Ability_ActiveComponent>());
         Initialize();
     }
 
@@ -29,7 +30,11 @@ public partial class Ability: MonoBehaviour
     {
         foreach (var passive in passives)
         {
-            passive.Initialize();
+            passive.Initialize(ability_multipliers);
+        }
+        foreach (var active in actives)
+        {
+            active.Initialize(ability_multipliers);
         }
     }
 
@@ -40,10 +45,4 @@ public partial class Ability: MonoBehaviour
             active.TriggerEffect();
         }
     }
-}
-#endregion
-
-public partial class Ability
-{
-
 }

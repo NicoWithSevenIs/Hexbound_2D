@@ -6,7 +6,29 @@ using System;
 [CreateAssetMenu(fileName = "Character", menuName = "Units/Character", order = 2)]
 public class Character : Unit
 {
-    [SerializeField] ActionMultipliers action_multipliers;
+    [Header("Action Multipliers")]
+    [Space]
+    public List<Multiplier> grounded_basic;
+    public List<Multiplier> grounded_heavy;
+    public List<Multiplier> aerial_basic;
+    public List<Multiplier> aerial_heavy;
+    public List<Multiplier> plunge;
+
+    [Serializable]
+    public class AbilitySet
+    {
+        public Ability passive;
+        public Ability active;
+    }
+
+    [Header("Abilities")]
+    [Space]
+    public AbilitySet base_abilities;
+    public AbilitySet somato_abilities;
+    public AbilitySet aether_abilities;
+    public AbilitySet onero_abilities;
+
+
 }
 
 

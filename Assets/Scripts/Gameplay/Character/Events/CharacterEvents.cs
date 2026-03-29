@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
-public interface ICharacterEvent {}
+public interface IEvent { }
+public interface ICharacterEvent: IEvent { }
 
 //modify to get all components
 public partial class CharacterEvents : MonoBehaviour
