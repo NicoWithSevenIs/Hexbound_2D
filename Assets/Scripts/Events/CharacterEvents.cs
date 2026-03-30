@@ -7,7 +7,7 @@ public interface IEvent { }
 public interface ICharacterEvent: IEvent { }
 
 //modify to get all components
-public partial class CharacterEvents : MonoBehaviour
+public class CharacterEvents : MonoBehaviour
 {
     private Dictionary<Type, List<GameObject>> listeners = new();
     
@@ -64,15 +64,12 @@ public partial class CharacterEvents : MonoBehaviour
             listeners[Key].Clear();
         }
     }
-}
 
-
-public partial class CharacterEvents
-{
-    public void HookUpCharacterEvents(GameObject instance)
+    public void TryRegisterEvents(GameObject instance)
     {
         Register<IOnCharacterDefeated>(instance);
         Register<IOnCharacterLoaded>(instance);
         Register<IOnCharacterSwitched>(instance);
     }
 }
+

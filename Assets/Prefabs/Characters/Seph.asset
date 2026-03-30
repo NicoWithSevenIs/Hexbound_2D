@@ -70,9 +70,20 @@ MonoBehaviour:
       Value: 0
     - Key: 26
       Value: 0
-  action_multipliers:
-    grounded_basic: []
-    grounded_heavy: []
-    aerial_basic: []
-    aerial_heavy: []
-    plunge: []
+  grounded_basic: []
+  grounded_heavy: []
+  aerial_basic: []
+  aerial_heavy: []
+  plunge: []
+  base_abilities:
+    passive: {fileID: 0}
+    active: {fileID: 0}
+  somato_abilities:
+    passive: {fileID: 0}
+    active: {fileID: 0}
+  aether_abilities:
+    passive: {fileID: 0}
+    active: {fileID: 0}
+  onero_abilities:
+    passive: {fileID: 0}
+    active: {fileID: 0}

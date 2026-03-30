@@ -11,7 +11,6 @@ using UnityEngine;
  */
 public class Ability: MonoBehaviour
 {
-
     [SerializeField]
     [SerializedDictionary("Action Name", "Multipliers")]
     private readonly SerializedDictionary<string, List<Multiplier>> ability_multipliers;
@@ -19,17 +18,13 @@ public class Ability: MonoBehaviour
     private List<Ability_PassiveComponent> passives;
     private List<Ability_ActiveComponent> actives;
 
-    private void Start()
+    public void Initialize(IEventAdapter adapter)
     {
         passives = new(GetComponentsInChildren<Ability_PassiveComponent>());
         actives = new(GetComponentsInChildren<Ability_ActiveComponent>());
-        Initialize();
-    }
-
-    private void Initialize()
-    {
         foreach (var passive in passives)
         {
+            passive.EventAdapter = adapter;
             passive.Initialize(ability_multipliers);
         }
         foreach (var active in actives)
@@ -42,7 +37,11 @@ public class Ability: MonoBehaviour
     {
         foreach(var active in actives)
         {
-            active.TriggerEffect();
+            active.Activate();
         }
     }
+
+
+    public List<Ability_PassiveComponent> PassiveComponents { get => passives; }
+    public List<Ability_ActiveComponent> ActiveComponents { get => actives; }
 }

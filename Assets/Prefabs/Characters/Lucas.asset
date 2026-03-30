@@ -70,25 +70,9 @@ MonoBehaviour:
       Value: 0
     - Key: 26
       Value: 0
-  grounded_basic:
-  - stat: 0
-    value: 0
-  - stat: 0
-    value: 0
-  - stat: 0
-    value: 0
-  grounded_heavy:
-  - stat: 0
-    value: 0
-  - stat: 0
-    value: 0
-  - stat: 0
-    value: 0
-  aerial_basic:
-  - stat: 0
-    value: 0
-  - stat: 0
-    value: 0
+  grounded_basic: []
+  grounded_heavy: []
+  aerial_basic: []
   aerial_heavy: []
   plunge: []
   base_abilities:

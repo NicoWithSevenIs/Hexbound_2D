@@ -5,7 +5,9 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
 {
     
     [SerializeField] private GameObject debug_prefab;
-    [SerializeField] private CharacterEvents character;
+
+    [SerializeField] private CharacterEvents character_events;
+    [SerializeField] private Ability_EventAdapter ability_events;
 
     [SerializeField] private List<UnitInstance> unit_list = new();
 
@@ -19,7 +21,7 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
     {
         var instance = Instantiate(prefab);
         instance.transform.position = pos == null ? Vector2.zero : pos.Value;
-        character.HookUpCharacterEvents(instance);
+        character_events.TryRegisterEvents(instance);
     }
 
     public void RegisterWorld()
@@ -27,7 +29,8 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
         List<Transform> scene = new(FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None));
         foreach (Transform t in scene)
         {
-            character.HookUpCharacterEvents(t.gameObject);
+            character_events.TryRegisterEvents(t.gameObject);
+            ability_events.TryRegisterAbility(t.gameObject);
             var unit_instance = t.GetComponent<UnitInstance>();
             if (unit_instance)
             {
