@@ -8,6 +8,6 @@ public interface IEventAdapterListener
 
 public interface IEventAdapter
 {
-    public void Register(IEventAdapterListener listener, Type[] events);
-    public void Unregister(IEventAdapterListener listener);
+    public bool TryRegister(IEventAdapterListener listener, Type[] events);
+    public bool TryUnregister(IEventAdapterListener listener);
 }

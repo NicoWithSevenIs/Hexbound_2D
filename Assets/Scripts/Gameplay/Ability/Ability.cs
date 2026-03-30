@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -15,21 +16,20 @@ public class Ability: MonoBehaviour
     [SerializedDictionary("Action Name", "Multipliers")]
     private readonly SerializedDictionary<string, List<Multiplier>> ability_multipliers;
 
-    private List<Ability_PassiveComponent> passives;
-    private List<Ability_ActiveComponent> actives;
+    
+    private List<AbilityComponent> passives;
+    private List<AbilityComponent> actives;
 
     public void Initialize(IEventAdapter adapter)
     {
-        passives = new(GetComponentsInChildren<Ability_PassiveComponent>());
-        actives = new(GetComponentsInChildren<Ability_ActiveComponent>());
-        foreach (var passive in passives)
+        var components = GetComponentsInChildren<AbilityComponent>();
+        passives = components.Where(component => component.Type == AbilityComponent.ComponentType.PASSIVE).ToList();
+        actives = components.Where(component => component.Type == AbilityComponent.ComponentType.ACTIVE).ToList();
+
+        foreach (var component in components)
         {
-            passive.EventAdapter = adapter;
-            passive.Initialize(ability_multipliers);
-        }
-        foreach (var active in actives)
-        {
-            active.Initialize(ability_multipliers);
+            component.EventAdapter = adapter;
+            component.Initialize(ability_multipliers);
         }
     }
 
@@ -37,11 +37,8 @@ public class Ability: MonoBehaviour
     {
         foreach(var active in actives)
         {
-            active.Activate();
+            active.Trigger();
         }
     }
 
-
-    public List<Ability_PassiveComponent> PassiveComponents { get => passives; }
-    public List<Ability_ActiveComponent> ActiveComponents { get => actives; }
 }

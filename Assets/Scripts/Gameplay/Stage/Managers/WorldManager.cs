@@ -30,7 +30,7 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
         foreach (Transform t in scene)
         {
             character_events.TryRegisterEvents(t.gameObject);
-            ability_events.TryRegisterAbility(t.gameObject);
+            ability_events.RegisterAbility(t.gameObject);
             var unit_instance = t.GetComponent<UnitInstance>();
             if (unit_instance)
             {

@@ -4,24 +4,63 @@ using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 
 
-public abstract partial class Ability_PassiveComponent : MonoBehaviour, IEventAdapterListener
+
+
+public abstract partial class AbilityComponent : MonoBehaviour, IEventAdapterListener
 {
     public IEventAdapter EventAdapter { get; set; }
 
-    private Type[] _event_triggers;
-    protected SerializedDictionary<string, List<Multiplier>> ability_multipliers;
 
-    protected abstract void SetEventTriggers();
-    public abstract void Trigger();
+    public enum ComponentType
+    {
+        ACTIVE, 
+        PASSIVE,
+    }
+
+    #region attributes
+    private Type[] _event_triggers;
+    [SerializeField] private ComponentType _component;
+    protected SerializedDictionary<string, List<Multiplier>> _ability_multipliers;
+    private bool _initialized = false;
+    #endregion
 
     public void Initialize(SerializedDictionary<string, List<Multiplier>> multipliers) 
     { 
-        ability_multipliers = multipliers;
+        _ability_multipliers = multipliers;
         SetEventTriggers();
+        EventAdapter.TryRegister(this, _event_triggers);
+        _initialized = true;
     }
+
+    public void OnEnable()
+    {
+        if (_initialized)
+        {
+            EventAdapter.TryRegister(this, _event_triggers);
+        }
+    }
+
+    public void OnDisable()
+    {
+        if (_initialized)
+        {
+            EventAdapter.TryUnregister(this);
+        }
+    }
+
+    public ComponentType Type { get => _component; }
 }
 
-public partial class Ability_PassiveComponent
+#region abstract methods
+public partial class AbilityComponent
+{
+    protected abstract void SetEventTriggers();
+    public abstract void Trigger();
+}
+#endregion
+
+#region event trigger helpers
+public partial class AbilityComponent
 {
     protected void _OnSetEventTriggers<T1>()
         where T1 : IEvent
@@ -51,3 +90,4 @@ public partial class Ability_PassiveComponent
         => _event_triggers = new Type[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6) };
 
 }
+#endregion

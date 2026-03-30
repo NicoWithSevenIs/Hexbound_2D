@@ -11,11 +11,15 @@ public class CharacterEvents : MonoBehaviour
 {
     private Dictionary<Type, List<GameObject>> listeners = new();
     
-    private void Register<TEvent>(GameObject listener) where TEvent : ICharacterEvent
+    public void Register<TEvent>(GameObject listener) where TEvent : ICharacterEvent
     {
-        Type Key = typeof(TEvent);
+        Register(typeof(TEvent), listener); 
+    }
 
-        if(listener.GetComponent(Key) == null)
+    public void Register(Type Key, GameObject listener) 
+    {
+
+        if (listener.GetComponent(Key) == null)
         {
             return;
         }
@@ -30,6 +34,7 @@ public class CharacterEvents : MonoBehaviour
             listeners[Key].Add(listener);
         }
     }
+
 
     public void DoOnListeners<TEvent>(Action<TEvent> executor) where TEvent : ICharacterEvent
     {
