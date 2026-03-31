@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8020640893702817101}
   - component: {fileID: 5034335904935011333}
-  - component: {fileID: -5420182839370697899}
-  - component: {fileID: -4125666354916981949}
+  - component: {fileID: 1799326380472522935}
   m_Layer: 0
-  m_Name: SampleBaseActive
+  m_Name: SampleAetherPassive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ad1c0656615894ab9523565e2abff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ability
-  _ability_name: Sample Base Active
+  _ability_name: Sample Aether Passive
   ability_multipliers: []
---- !u!114 &-5420182839370697899
+--- !u!114 &1799326380472522935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,18 +61,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityDependencyReceiver
   _dependencies:
     _serializedList: []
---- !u!114 &-4125666354916981949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7358298196145967530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52f6980982aa07c499e9254cbeb868ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sample_BaseActive
-  _type: 0
-  _ability_multipliers: []
-  _base_passive_name: Sample Base Passive

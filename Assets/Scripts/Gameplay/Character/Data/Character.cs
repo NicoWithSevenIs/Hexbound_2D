@@ -27,6 +27,7 @@ public class Character : Unit
     public AbilitySet somato_abilities;
     public AbilitySet aether_abilities;
     public AbilitySet onero_abilities;
+    public Ability ultimate;
 
 
 }

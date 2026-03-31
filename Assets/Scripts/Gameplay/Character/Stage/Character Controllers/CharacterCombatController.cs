@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CharacterCombatController : CharacterController, IOnCharacterLoaded
+public partial class CharacterCombatController : CharacterController, IOnCharacterLoaded
 {
    
     [SerializeField] private float global_min_hold_duration = 0.6f;
-
-    private Ability _base_passive;
-    private Ability _base_active;
-    
 
     public void TriggerBasicAttack(float input_duration)
     {
@@ -67,13 +63,31 @@ public class CharacterCombatController : CharacterController, IOnCharacterLoaded
     {
         _base_active.TriggerActiveEffect();
     }
+}
 
-    protected override void Awake()
-    {
-        base.Awake();
-        print("initialized");
-        print(ch);
-    }
+public partial class CharacterCombatController
+{
+    #region Ability World Buckets
+    [Header("Ability Instance Buckets")]
+    [SerializeField] private Transform _base;
+    [SerializeField] private Transform _somato;
+    [SerializeField] private Transform _onero;
+    [SerializeField] private Transform _aether;
+    #endregion
+
+    private Ability _base_passive;
+    private Ability _base_active;
+
+    private Ability _somato_passive;
+    private Ability _somato_active;
+
+    private Ability _onero_passive;
+    private Ability _onero_active;
+
+    private Ability _aether_passive;
+    private Ability _aether_active;
+
+    private Ability _ultimate;
 
     public void OnCharacterLoaded(CharacterInstance character1, CharacterInstance character2)
     {
@@ -81,39 +95,62 @@ public class CharacterCombatController : CharacterController, IOnCharacterLoaded
         {
             return;
         }
+
         var data = ch.CharacterData;
-        InitializeAbility(data.base_abilities.passive, out _base_passive);
-        InitializeAbility(data.base_abilities.active, out _base_active);
+        InitializeAbility(data.base_abilities.passive, out _base_passive, _base);
+        InitializeAbility(data.base_abilities.active, out _base_active, _base);
+
+        InitializeAbility(data.somato_abilities.passive, out _somato_passive, _somato);
+        InitializeAbility(data.somato_abilities.active, out _somato_active, _somato);
+
+        InitializeAbility(data.onero_abilities.passive, out _onero_passive, _onero);
+        InitializeAbility(data.onero_abilities.active, out _onero_active, _onero);
+
+        InitializeAbility(data.aether_abilities.passive, out _aether_passive, _aether);
+        InitializeAbility(data.aether_abilities.active, out _aether_active, _aether);
+
+        InitializeAbility(data.ultimate, out _ultimate, _base);
+
+        InjectDependencies();
     }
 
-    private void InitializeAbility(Ability ability_data, out Ability ability)
+    private void InitializeAbility(Ability ability_data, out Ability ability, Transform parent = null)
     {
-        var instance = WorldManager.Create(ability_data.gameObject, transform);
+        var instance = WorldManager.Create(ability_data.gameObject, parent == null ? transform : parent, Vector3.zero);
         ability = instance.GetComponent<Ability>();
         ability.Initialize(ch);
-
-        Debug.Log($"Loaded {ability.AbilityName} for {ch.CharacterData.unit_name}");
-
-        var dependency_receiver = instance.GetComponent<AbilityDependencyReceiver>();
-        if (dependency_receiver == null)
-        {
-            return;
-        }
-
-        var dependency_list = new List<Ability>()
-        {
-            _base_passive,
-            _base_active
-        };
-
-        foreach(var dependency in dependency_list)
-        {
-            if(ability != dependency)
-            {
-                dependency_receiver.SetDependency(dependency);
-            }
-        }
-
     }
 
+    private void InjectDependencies()
+    {
+
+        var ability_list = new List<Ability>()
+        {
+            _base_passive,
+            _base_active,
+            _somato_passive,
+            _somato_active,
+            _onero_passive,
+            _onero_active,
+            _aether_passive,
+            _aether_active,
+            _ultimate
+        };
+
+        foreach (var ability in ability_list)
+        {
+            var dependency_receiver = ability.GetComponent<AbilityDependencyReceiver>();
+            if (dependency_receiver == null)
+            {
+                continue;
+            }
+            foreach (var dependency in ability_list)
+            {
+                if (ability != dependency)
+                {
+                    dependency_receiver.SetDependency(dependency);
+                }
+            }
+        }
+    }
 }

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8020640893702817101}
   - component: {fileID: 5034335904935011333}
-  - component: {fileID: 733622703494197075}
+  - component: {fileID: -8696717357897464284}
   m_Layer: 0
-  m_Name: SampleBasePassive
+  m_Name: SampleSomatoPassive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ad1c0656615894ab9523565e2abff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ability
-  _ability_name: Sample Base Passive
+  _ability_name: Sample Somato Passive
   ability_multipliers: []
---- !u!114 &733622703494197075
+--- !u!114 &-8696717357897464284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,10 +56,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7358298196145967530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6874f99a4a3594f9f6e6e3aa7d3198, type: 3}
+  m_Script: {fileID: 11500000, guid: 94dc7d552b01d7a4c8ef8f2fd0207331, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SamplePassive
-  _type: 1
-  _ability_multipliers: []
-  _switch_count: 0
-  _max: 3
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityDependencyReceiver
+  _dependencies:
+    _serializedList: []

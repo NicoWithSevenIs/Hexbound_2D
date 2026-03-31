@@ -79,11 +79,12 @@ MonoBehaviour:
     passive: {fileID: 5034335904935011333, guid: 00865a52f7d37a640bedb1d740ef2f5c, type: 3}
     active: {fileID: 5034335904935011333, guid: 4459debceba05ca429afac9a2d631afb, type: 3}
   somato_abilities:
-    passive: {fileID: 0}
-    active: {fileID: 0}
+    passive: {fileID: 5034335904935011333, guid: 15f8a449f9e136340a802d23d12de052, type: 3}
+    active: {fileID: 5034335904935011333, guid: f58cc3991df879948b6006249a1e0a30, type: 3}
   aether_abilities:
-    passive: {fileID: 0}
-    active: {fileID: 0}
+    passive: {fileID: 5034335904935011333, guid: 2b7d3aec1b5fe85419773f15a60e838a, type: 3}
+    active: {fileID: 5034335904935011333, guid: 09afc3b3091702d40a5f6e919b0266f6, type: 3}
   onero_abilities:
-    passive: {fileID: 0}
-    active: {fileID: 0}
+    passive: {fileID: 5034335904935011333, guid: 1cd01913ecfa6a64d82dc879ef47f3d9, type: 3}
+    active: {fileID: 5034335904935011333, guid: 65947557b1f28634b8680a7482d972b4, type: 3}
+  ultimate: {fileID: 5034335904935011333, guid: 0d27e6a3006bb554586c9f5dfc9880c3, type: 3}
