@@ -76,8 +76,8 @@ MonoBehaviour:
   aerial_heavy: []
   plunge: []
   base_abilities:
-    passive: {fileID: 0}
-    active: {fileID: 0}
+    passive: {fileID: 5034335904935011333, guid: 00865a52f7d37a640bedb1d740ef2f5c, type: 3}
+    active: {fileID: 5034335904935011333, guid: 4459debceba05ca429afac9a2d631afb, type: 3}
   somato_abilities:
     passive: {fileID: 0}
     active: {fileID: 0}

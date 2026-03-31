@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -9,27 +10,36 @@ using UnityEngine;
     -> Multiplier Modification
  
  */
-public class Ability: MonoBehaviour
+
+public partial class Ability : MonoBehaviour
 {
+    [Header("Info")]
+    [SerializeField] private string _ability_name;
+
+}
+
+public partial class Ability
+{
+
+    [Header("Combat Data")]
     [SerializeField]
     [SerializedDictionary("Action Name", "Multipliers")]
-    private readonly SerializedDictionary<string, List<Multiplier>> ability_multipliers;
+    private List<Multiplier> ability_multipliers;
 
-    private List<Ability_PassiveComponent> passives;
-    private List<Ability_ActiveComponent> actives;
+    private List<AbilityComponent> actives = new();
 
-    public void Initialize(IEventAdapter adapter)
+    public void Initialize(CharacterInstance character)
     {
-        passives = new(GetComponentsInChildren<Ability_PassiveComponent>());
-        actives = new(GetComponentsInChildren<Ability_ActiveComponent>());
-        foreach (var passive in passives)
+        var components = GetComponentsInChildren<AbilityComponent>();
+
+        foreach (var component in components)
         {
-            passive.EventAdapter = adapter;
-            passive.Initialize(ability_multipliers);
-        }
-        foreach (var active in actives)
-        {
-            active.Initialize(ability_multipliers);
+            component.AbilityMultipliers = ability_multipliers;
+            component.Initialize(character);
+            if (component.Type == ComponentType.ACTIVE)
+            {
+                actives.Add(component);
+            }
         }
     }
 
@@ -40,8 +50,10 @@ public class Ability: MonoBehaviour
             active.Activate();
         }
     }
+}
 
 
-    public List<Ability_PassiveComponent> PassiveComponents { get => passives; }
-    public List<Ability_ActiveComponent> ActiveComponents { get => actives; }
+public partial class Ability
+{
+    public string AbilityName { get => _ability_name; }
 }

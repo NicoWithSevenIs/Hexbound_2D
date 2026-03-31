@@ -113,6 +113,11 @@ public partial class CharacterInput
 
     public void Base_Active(InputAction.CallbackContext context)
     {
+        if (context.canceled)
+        {
+            current_combat_controller.TriggerBaseActive(0);
+        }
+
     }
 
     public void Switch_Path(InputAction.CallbackContext context)

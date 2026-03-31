@@ -45,5 +45,6 @@ public partial class CharacterInstance
     public Stats BaseStats { get => character_data.stats; }
     public Stats BuildStats { get => build_stats; }
     public Stats CurrentStats { get => current_stats; }
+    public bool Loaded { get => character_data != null;  }
 }
 #endregion

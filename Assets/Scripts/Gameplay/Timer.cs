@@ -83,5 +83,6 @@ public class Timer
     public float MaxTime { set => time = value; }
     public Action OnElapsedCallback { set => on_elapsed_callback = value; } 
     public Action OnStartCallback { set => on_start_callback = value;}
+    public float TimeElapsed { get => timer; }
     #endregion
 }

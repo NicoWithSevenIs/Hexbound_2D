@@ -53,7 +53,7 @@ public partial class CharacterManager : MonoBehaviour
         current_character = character_1;
 
         character_1.Load(debug_character_1, debug_c1_build);
-        
+ 
         if (has_character_2)
         {
             character_2.Load(debug_character_2, debug_c2_build);
@@ -75,13 +75,15 @@ public partial class CharacterManager
     private void Awake()
     {
         char_events = GetComponent<CharacterEvents>();
+        character_1.gameObject.SetActive(true);
+        character_2.gameObject.SetActive(true);
     }
 
     private void Start()
     {
         has_character_2 = !load_c1_only;
-        InitializeCharacters();
         UpdateStats = new Timer(0.1f, CalculateTotalStats);
+        InitializeCharacters();
     }
 
     private void Update()

@@ -7,7 +7,6 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
     [SerializeField] private GameObject debug_prefab;
 
     [SerializeField] private CharacterEvents character_events;
-    [SerializeField] private Ability_EventAdapter ability_events;
 
     [SerializeField] private List<UnitInstance> unit_list = new();
 
@@ -17,27 +16,35 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
         RegisterWorld();
     }
 
-    public void CreateEntity(GameObject prefab, Vector2? pos = null)
+    public static GameObject Create(GameObject prefab, Transform parent = null, Vector2? pos = null)
     {
-        var instance = Instantiate(prefab);
-        instance.transform.position = pos == null ? Vector2.zero : pos.Value;
-        character_events.TryRegisterEvents(instance);
+        var new_gameobject = GameObject.Instantiate(prefab);
+        new_gameobject.transform.parent = parent;
+        new_gameobject.transform.position = pos == null ? Vector2.zero : pos.Value;
+
+        instance.RegisterInstance(new_gameobject);
+        return new_gameobject;
     }
 
     public void RegisterWorld()
     {
         List<Transform> scene = new(FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None));
         foreach (Transform t in scene)
-        {
-            character_events.TryRegisterEvents(t.gameObject);
-            ability_events.TryRegisterAbility(t.gameObject);
-            var unit_instance = t.GetComponent<UnitInstance>();
-            if (unit_instance)
-            {
-                unit_list.Add(unit_instance);
-            }
+        {;
+            RegisterInstance(t.gameObject);
         }
     }
+
+    private void RegisterInstance(GameObject instance)
+    {
+        character_events.TryRegisterEvents(instance.gameObject);
+        var unit_instance = instance.GetComponent<UnitInstance>();
+        if (unit_instance)
+        {
+            unit_list.Add(unit_instance);
+        }
+    }
+
 
 }
 
