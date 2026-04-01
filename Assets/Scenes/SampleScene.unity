@@ -4870,7 +4870,7 @@ MonoBehaviour:
   debug_c1_build: {fileID: 11400000, guid: fc90e82bd4266b64fb3cfcdb52b0fd39, type: 2}
   debug_character_2: {fileID: 11400000, guid: 31a7d195e90881541b9ebad60ab7f62a, type: 2}
   debug_c2_build: {fileID: 11400000, guid: 471074f74cf64554d9b637d791f95257, type: 2}
-  load_c1_only: 1
+  load_c1_only: 0
   character_1: {fileID: 875307222}
   character_2: {fileID: 843726786}
   OnStatsUpdating:
