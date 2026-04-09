@@ -1,5 +1,7 @@
 using Hexbound.Stats;
+using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -89,6 +91,27 @@ public partial class CharacterCombatController
 
     private Ability _ultimate;
 
+    private Dictionary<Path, Ability> path_ability_lookup = new();
+
+    public void SwitchPaths(int dir)
+    {
+        dir = math.sign(dir);
+        if (dir == 0)
+        {
+            return;
+        }
+        var path_index = (int)ch.CurrentPath;
+        var path_count = Enum.GetValues(typeof(Path)).Length;
+        int next = path_index + dir;
+        next = (next % path_count + path_count) % path_count; //wrap around with negative dir in mind
+        ch.SwitchPaths((Path)next);
+    }
+
+    public void TriggerPathActive(float input_duration)
+    {
+        path_ability_lookup[ch.CurrentPath].TriggerActiveEffect();
+    }
+
     public void OnCharacterLoaded(CharacterInstance character1, CharacterInstance character2)
     {
         if (!ch.Loaded)
@@ -112,6 +135,10 @@ public partial class CharacterCombatController
         InitializeAbility(data.ultimate, out _ultimate, _base);
 
         InjectDependencies();
+
+        path_ability_lookup[Path.SOMATO] = data.somato_abilities.active;
+        path_ability_lookup[Path.ONERO] = data.onero_abilities.active;
+        path_ability_lookup[Path.AETHER] = data.aether_abilities.active;
     }
 
     private void InitializeAbility(Ability ability_data, out Ability ability, Transform parent = null)
@@ -153,4 +180,6 @@ public partial class CharacterCombatController
             }
         }
     }
+
+
 }

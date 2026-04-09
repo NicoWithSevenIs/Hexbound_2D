@@ -70,6 +70,8 @@ MonoBehaviour:
       Value: 0
     - Key: 26
       Value: 0
+  main_path: 0
+  secondary_path: 1
   grounded_basic: []
   grounded_heavy: []
   aerial_basic: []

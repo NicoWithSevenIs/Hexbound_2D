@@ -6,6 +6,9 @@ using System;
 [CreateAssetMenu(fileName = "Character", menuName = "Units/Character", order = 2)]
 public class Character : Unit
 {
+    public Path main_path;
+    public Path secondary_path;
+
     [Header("Action Multipliers")]
     [Space]
     public List<Multiplier> grounded_basic;
@@ -28,8 +31,6 @@ public class Character : Unit
     public AbilitySet aether_abilities;
     public AbilitySet onero_abilities;
     public Ability ultimate;
-
-
 }
 
 

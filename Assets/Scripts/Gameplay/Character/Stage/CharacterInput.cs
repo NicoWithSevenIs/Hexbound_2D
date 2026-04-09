@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterManager))]
 public partial class CharacterInput : MonoBehaviour, IOnCharacterSwitched, IOnCharacterLoaded
 {
-
 
     private CharacterMovementController current_movement_controller;
     private CharacterCombatController current_combat_controller;
@@ -84,6 +84,12 @@ public partial class CharacterInput
 
     public void Basic_Attack(InputAction.CallbackContext context)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            Debug.Log("Over UI");
+            return;
+        }
+
         if (context.started)
         {
             Basic_Attack_Input.down = true;
@@ -117,12 +123,15 @@ public partial class CharacterInput
         {
             current_combat_controller.TriggerBaseActive(0);
         }
-
     }
 
     public void Switch_Path(InputAction.CallbackContext context)
     {
-
+        if (context.started)
+        {
+            var dir = Mathf.Sign(context.ReadValue<float>());
+            current_combat_controller.SwitchPaths(-(int)dir);
+        }
     }
 
     public void Path_Active(InputAction.CallbackContext context)

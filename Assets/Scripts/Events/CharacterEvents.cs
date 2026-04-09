@@ -70,6 +70,7 @@ public class CharacterEvents : MonoBehaviour
         Register<IOnCharacterDefeated>(instance);
         Register<IOnCharacterLoaded>(instance);
         Register<IOnCharacterSwitched>(instance);
+        Register<IOnPathSwitched>(instance);
     }
 }
 
