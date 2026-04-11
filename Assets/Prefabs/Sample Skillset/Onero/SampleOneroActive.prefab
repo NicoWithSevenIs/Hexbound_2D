@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8020640893702817101
 Transform:
   m_ObjectHideFlags: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ability
   _ability_name: Sample Onero Active
   ability_multipliers: []
+  is_ability_active: 0
 --- !u!114 &-5420182839370697899
 MonoBehaviour:
   m_ObjectHideFlags: 0

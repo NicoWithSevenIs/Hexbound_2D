@@ -71,6 +71,17 @@ public class CharacterEvents : MonoBehaviour
         Register<IOnCharacterLoaded>(instance);
         Register<IOnCharacterSwitched>(instance);
         Register<IOnPathSwitched>(instance);
+
+        //Action Events
+        Register<IOnBasicAttack>(instance);
+        Register<IOnPlungingAttack>(instance);
+
+        Register<IOnBaseAbility>(instance);
+        Register<IOnPathAbility>(instance);
+        Register<IOnUltimate>(instance);
+
+        Register<IOnJump>(instance);
+        Register<IOnDash>(instance);
     }
 }
 

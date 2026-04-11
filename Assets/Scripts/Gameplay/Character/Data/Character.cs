@@ -17,12 +17,7 @@ public class Character : Unit
     public List<Multiplier> aerial_heavy;
     public List<Multiplier> plunge;
 
-    [Serializable]
-    public class AbilitySet
-    {
-        public Ability passive;
-        public Ability active;
-    }
+
 
     [Header("Abilities")]
     [Space]

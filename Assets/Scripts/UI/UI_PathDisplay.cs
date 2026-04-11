@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class UI_PathDisplay : MonoBehaviour, IOnPathSwitched, IOnCharacterSwitched
 {
-    private static readonly Path[] PATHS = (Path[]) Enum.GetValues(typeof(Path));
-
+ 
     [Serializable]
     public class Highlightable
     {
@@ -51,8 +50,7 @@ public class UI_PathDisplay : MonoBehaviour, IOnPathSwitched, IOnCharacterSwitch
 
     public void OnPathSwitched(CharacterInstance character, Path entry_path, Path departing_path)
     {
-        Debug.Log("Path Switched");
-        foreach (var path in PATHS)
+        foreach (var path in Paths.Values)
         {
             var highlight = Highlights[path];
 
@@ -74,7 +72,7 @@ public class UI_PathDisplay : MonoBehaviour, IOnPathSwitched, IOnCharacterSwitch
 
     public void OnCharacterSwitched(CharacterInstance entering, CharacterInstance departing)
     {
-        foreach (var path in PATHS)
+        foreach (var path in Paths.Values)
         {
             var highlight = Highlights[path];
 

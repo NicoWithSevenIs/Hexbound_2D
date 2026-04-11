@@ -5,9 +5,10 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-public partial class CharacterCombatController : CharacterController, IOnCharacterLoaded
+public partial class CharacterCombatController : CharacterController, IOnCharacterLoaded, IOnPathSwitched
 {
-   
+    private static readonly Path[] PATHS = (Path[])Enum.GetValues(typeof(Path));
+
     [SerializeField] private float global_min_hold_duration = 0.6f;
 
     public void TriggerBasicAttack(float input_duration)
@@ -63,8 +64,10 @@ public partial class CharacterCombatController : CharacterController, IOnCharact
 
     public void TriggerBaseActive(float input_duration)
     {
-        _base_active.TriggerActiveEffect();
+        _base_set.active.TriggerActiveEffect();
     }
+
+
 }
 
 public partial class CharacterCombatController
@@ -77,21 +80,14 @@ public partial class CharacterCombatController
     [SerializeField] private Transform _aether;
     #endregion
 
-    private Ability _base_passive;
-    private Ability _base_active;
-
-    private Ability _somato_passive;
-    private Ability _somato_active;
-
-    private Ability _onero_passive;
-    private Ability _onero_active;
-
-    private Ability _aether_passive;
-    private Ability _aether_active;
+    private AbilitySet _base_set = new();
+    private AbilitySet _somato_set = new();
+    private AbilitySet _onero_set = new();
+    private AbilitySet _aether_set = new();
 
     private Ability _ultimate;
 
-    private Dictionary<Path, Ability> path_ability_lookup = new();
+    private Dictionary<Path, AbilitySet> path_ability_lookup = new();
 
     public void SwitchPaths(int dir)
     {
@@ -109,7 +105,7 @@ public partial class CharacterCombatController
 
     public void TriggerPathActive(float input_duration)
     {
-        path_ability_lookup[ch.CurrentPath].TriggerActiveEffect();
+        path_ability_lookup[ch.CurrentPath].active.TriggerActiveEffect();
     }
 
     public void OnCharacterLoaded(CharacterInstance character1, CharacterInstance character2)
@@ -120,25 +116,36 @@ public partial class CharacterCombatController
         }
 
         var data = ch.CharacterData;
-        InitializeAbility(data.base_abilities.passive, out _base_passive, _base);
-        InitializeAbility(data.base_abilities.active, out _base_active, _base);
+        InitializeAbility(data.base_abilities.passive, out _base_set.passive, _base);
+        InitializeAbility(data.base_abilities.active, out _base_set.active, _base);
 
-        InitializeAbility(data.somato_abilities.passive, out _somato_passive, _somato);
-        InitializeAbility(data.somato_abilities.active, out _somato_active, _somato);
+        InitializeAbility(data.somato_abilities.passive, out _somato_set.passive, _somato);
+        InitializeAbility(data.somato_abilities.active, out _somato_set.active, _somato);
 
-        InitializeAbility(data.onero_abilities.passive, out _onero_passive, _onero);
-        InitializeAbility(data.onero_abilities.active, out _onero_active, _onero);
+        InitializeAbility(data.onero_abilities.passive, out _onero_set.passive, _onero);
+        InitializeAbility(data.onero_abilities.active, out _onero_set.active, _onero);
 
-        InitializeAbility(data.aether_abilities.passive, out _aether_passive, _aether);
-        InitializeAbility(data.aether_abilities.active, out _aether_active, _aether);
+        InitializeAbility(data.aether_abilities.passive, out _aether_set.passive, _aether);
+        InitializeAbility(data.aether_abilities.active, out _aether_set.active, _aether);
 
         InitializeAbility(data.ultimate, out _ultimate, _base);
 
         InjectDependencies();
 
-        path_ability_lookup[Path.SOMATO] = data.somato_abilities.active;
-        path_ability_lookup[Path.ONERO] = data.onero_abilities.active;
-        path_ability_lookup[Path.AETHER] = data.aether_abilities.active;
+        path_ability_lookup[Path.SOMATO] = new AbilitySet{
+           active =  _somato_set.active,
+           passive = _somato_set.passive,
+        };
+        path_ability_lookup[Path.ONERO] = new AbilitySet
+        {
+            active = _onero_set.active,
+            passive = _onero_set.passive,
+        };
+        path_ability_lookup[Path.AETHER] = new AbilitySet
+        {
+            active = _aether_set.active,
+            passive = _aether_set.passive,
+        };
     }
 
     private void InitializeAbility(Ability ability_data, out Ability ability, Transform parent = null)
@@ -148,19 +155,32 @@ public partial class CharacterCombatController
         ability.Initialize(ch);
     }
 
+    public void OnPathSwitched(CharacterInstance character, Path entry_path, Path departing_path)
+    {
+        if (!ch.IsActive)
+        {
+            return;
+        }
+        foreach(var path in Paths.Values)
+        {
+            path_ability_lookup[path].passive.AbilityActive = path == entry_path;
+            path_ability_lookup[path].active.AbilityActive = path == entry_path;
+        }
+    }
+
     private void InjectDependencies()
     {
 
         var ability_list = new List<Ability>()
         {
-            _base_passive,
-            _base_active,
-            _somato_passive,
-            _somato_active,
-            _onero_passive,
-            _onero_active,
-            _aether_passive,
-            _aether_active,
+            _base_set.passive,
+            _base_set.active,
+            _somato_set.passive,
+            _somato_set.active,
+            _onero_set.passive,
+            _onero_set.active,
+            _aether_set.passive,
+            _aether_set.active,
             _ultimate
         };
 

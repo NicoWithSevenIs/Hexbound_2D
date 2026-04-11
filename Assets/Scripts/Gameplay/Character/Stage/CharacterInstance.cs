@@ -23,8 +23,6 @@ public partial class CharacterInstance : MonoBehaviour, IDamageable
 
         build_stats = character.stats + char_build.bonuses;
         current_stats = new(build_stats);
-
-        SwitchPaths(character.main_path);
     }
 
     public void ReceiveDamage(float dmg, List<Damage_Tag> damage_tags, IDamageable source)

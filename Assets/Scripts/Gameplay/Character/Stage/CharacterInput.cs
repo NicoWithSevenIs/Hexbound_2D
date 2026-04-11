@@ -136,6 +136,10 @@ public partial class CharacterInput
 
     public void Path_Active(InputAction.CallbackContext context)
     {
+        if (context.canceled)
+        {
+            current_combat_controller.TriggerPathActive(0);
+        }
     }
 
     public void Ultimate(InputAction.CallbackContext context)

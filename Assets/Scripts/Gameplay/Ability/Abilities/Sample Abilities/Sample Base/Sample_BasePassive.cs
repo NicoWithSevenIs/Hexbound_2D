@@ -8,15 +8,22 @@ public class Sample_BasePassive : AbilityComponent, IOnCharacterSwitched
 
     public override void Activate()
     {
-        if (!gameObject.activeSelf || !Initialzied)
+        if (!_character.IsActive || !Initialized)
+        {
+            Debug.Log("Character Not Active");
             return;
+        }
 
-        _switch_count = ++_switch_count % _max;
+        Debug.Log($"{_character.CharacterData.unit_name} :Switched {_max} times, activating passive");
     }
 
     public void OnCharacterSwitched(CharacterInstance entering, CharacterInstance departing)
     {
-        Activate();
+        _switch_count = ++_switch_count % _max;
+        if (_switch_count == 0)
+        {
+            Activate();
+        }
     }
 
     public int SwitchCount { get => _switch_count; }
