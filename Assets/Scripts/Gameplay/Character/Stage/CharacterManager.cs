@@ -4,6 +4,7 @@ using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
+using static UnityEditor.Rendering.CameraUI;
 
 public partial class CharacterManager : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public partial class CharacterManager : MonoBehaviour
         void LoadCharacter(IOnCharacterLoaded i) => i.OnCharacterLoaded(character_1, character_2);
         char_events.DoOnListeners<IOnCharacterLoaded>(LoadCharacter);
 
+        char_events.DoOnListeners<IOnCharacterSwitched>(i => i.OnCharacterSwitched(character_1, character_2));
 
         character_1.SwitchPaths(debug_character_1.main_path);
         character_2.SwitchPaths(debug_character_2.main_path);

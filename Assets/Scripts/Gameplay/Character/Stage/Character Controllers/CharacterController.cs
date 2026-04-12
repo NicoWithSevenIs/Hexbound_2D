@@ -10,6 +10,7 @@ public abstract class CharacterController : MonoBehaviour
     protected CapsuleCollider2D coll;
 
     protected CharacterInstance ch;
+    protected CharacterEvents ev;
     protected CharacterState state;
 
     [SerializeField] private List<LayerMask> exclude_list;
@@ -19,6 +20,7 @@ public abstract class CharacterController : MonoBehaviour
     {
         body = GetComponentInParent<Rigidbody2D>();
         coll = GetComponentInParent<CapsuleCollider2D>();
+        ev= GetComponentInParent<CharacterEvents>();
         ch = GetComponent<CharacterInstance>();
         state = GetComponent<CharacterState>();
 

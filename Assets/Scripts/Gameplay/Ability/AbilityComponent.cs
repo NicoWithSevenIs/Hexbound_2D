@@ -22,28 +22,29 @@ public abstract class AbilityComponent : MonoBehaviour
         _character = character;
     }
 
-    public abstract void Activate();
-    public virtual void OnSetAbilityActive(bool value)
+    public virtual void Trigger()
     {
-
+        if( _is_ability_component_active)
+        {
+            Activate();
+        }
     }
+    protected abstract void Activate();
 
     #region getters & setters
     public List<Multiplier> AbilityMultipliers { set => _ability_multipliers = value; }
     public ComponentType Type { get => _type; }
 
     public bool Initialized { get => _character != null; }
-    public bool ComponentActive
+    public virtual bool ComponentActive
     {
         get => _is_ability_component_active;
         set
         {
-            if(_is_ability_component_active == value)
+            if(_is_ability_component_active != value)
             {
-                return;
+                _is_ability_component_active = value;
             }
-            _is_ability_component_active= value;
-            OnSetAbilityActive(value);
         }
     }
     #endregion

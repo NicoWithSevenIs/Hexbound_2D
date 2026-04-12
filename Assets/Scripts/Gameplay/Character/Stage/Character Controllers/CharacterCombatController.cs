@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-public partial class CharacterCombatController : CharacterController, IOnCharacterLoaded, IOnPathSwitched
+public partial class CharacterCombatController : CharacterController, IOnCharacterLoaded, IOnPathSwitched, IOnCharacterSwitched
 {
     private static readonly Path[] PATHS = (Path[])Enum.GetValues(typeof(Path));
 
@@ -14,9 +14,9 @@ public partial class CharacterCombatController : CharacterController, IOnCharact
     public void TriggerBasicAttack(float input_duration)
     {
         bool is_aerial = !IsGrounded();
-        bool is_held = input_duration > global_min_hold_duration;
+        bool is_heavy = input_duration > global_min_hold_duration;
 
-        if (!is_aerial && !is_held)
+        if (!is_aerial && !is_heavy)
         {
             Debug.Log("Grounded Basic");
 
@@ -29,20 +29,23 @@ public partial class CharacterCombatController : CharacterController, IOnCharact
                     damageable.ReceiveDamage(ch.CurrentStats[StatType.ATK], null, ch);
                 }
             }
-            
+
         }
-        else if (!is_aerial && is_held)
+        else if (!is_aerial && is_heavy)
         {
             Debug.Log("Grounded Heavy");
         }
-        else if(is_aerial && !is_held)
+        else if(is_aerial && !is_heavy)
         {
             Debug.Log("Aerial Basic");
         }
-        else if (is_aerial && is_held)
+        else if (is_aerial && is_heavy)
         {
             Debug.Log("Aerial Heavy");
         }
+
+        ev.DoOnListeners<IOnBasicAttack>(listener => listener.OnBasicAttack(ch, is_heavy, is_aerial));
+
     }
 
     private void OnDrawGizmos()
@@ -146,6 +149,38 @@ public partial class CharacterCombatController
             active = _aether_set.active,
             passive = _aether_set.passive,
         };
+
+        //InitializeAbilityInstances();
+    }
+
+    public void OnCharacterSwitched(CharacterInstance entering, CharacterInstance departing)
+    {
+        InitializeAbilityInstances();
+    }
+    
+    public void OnPathSwitched(CharacterInstance character, Path entry_path, Path departing_path)
+    {
+        if (!ch.IsActive)
+        {
+            return;
+        }
+        foreach (var path in Paths.Values)
+        {
+            path_ability_lookup[path].SetActive(path == entry_path);
+        }
+    }
+
+    #region helper methods
+
+    private void InitializeAbilityInstances()
+    {
+        _base_set.SetActive(ch.IsActive);
+        _ultimate.AbilityActive = ch.IsActive;
+        foreach (var path in Paths.Values)
+        {
+            path_ability_lookup[path].SetActive(ch.IsActive && path == ch.CurrentPath);
+            path_ability_lookup[path].SetActive(ch.IsActive && path == ch.CurrentPath);
+        }
     }
 
     private void InitializeAbility(Ability ability_data, out Ability ability, Transform parent = null)
@@ -153,19 +188,6 @@ public partial class CharacterCombatController
         var instance = WorldManager.Create(ability_data.gameObject, parent == null ? transform : parent, Vector3.zero);
         ability = instance.GetComponent<Ability>();
         ability.Initialize(ch);
-    }
-
-    public void OnPathSwitched(CharacterInstance character, Path entry_path, Path departing_path)
-    {
-        if (!ch.IsActive)
-        {
-            return;
-        }
-        foreach(var path in Paths.Values)
-        {
-            path_ability_lookup[path].passive.AbilityActive = path == entry_path;
-            path_ability_lookup[path].active.AbilityActive = path == entry_path;
-        }
     }
 
     private void InjectDependencies()
@@ -201,5 +223,5 @@ public partial class CharacterCombatController
         }
     }
 
-
+    #endregion
 }

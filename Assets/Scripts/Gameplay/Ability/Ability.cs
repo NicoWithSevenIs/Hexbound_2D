@@ -49,7 +49,7 @@ public partial class Ability
     {
         foreach(var active in actives)
         {
-            active.Activate();
+            active.Trigger();
         }
     }
 
