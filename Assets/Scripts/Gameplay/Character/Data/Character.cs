@@ -9,13 +9,15 @@ public class Character : Unit
     public Path main_path;
     public Path secondary_path;
 
+
+
     [Header("Action Multipliers")]
     [Space]
-    public List<Multiplier> grounded_basic;
-    public List<Multiplier> grounded_heavy;
-    public List<Multiplier> aerial_basic;
-    public List<Multiplier> aerial_heavy;
-    public List<Multiplier> plunge;
+    public CharacterActionData grounded_basic;
+    public CharacterActionData grounded_heavy;
+    public CharacterActionData aerial_basic;
+    public CharacterActionData aerial_heavy;
+    public CharacterActionData plunge;
 
 
 

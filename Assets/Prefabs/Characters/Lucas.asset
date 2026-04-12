@@ -70,13 +70,23 @@ MonoBehaviour:
       Value: 0
     - Key: 26
       Value: 0
-  main_path: 0
+  main_path: 2
   secondary_path: 1
-  grounded_basic: []
-  grounded_heavy: []
-  aerial_basic: []
-  aerial_heavy: []
-  plunge: []
+  grounded_basic:
+    hit_count: 4
+    multipliers: []
+  grounded_heavy:
+    hit_count: 1
+    multipliers: []
+  aerial_basic:
+    hit_count: 3
+    multipliers: []
+  aerial_heavy:
+    hit_count: 1
+    multipliers: []
+  plunge:
+    hit_count: 0
+    multipliers: []
   base_abilities:
     passive: {fileID: 5034335904935011333, guid: 00865a52f7d37a640bedb1d740ef2f5c, type: 3}
     active: {fileID: 5034335904935011333, guid: 4459debceba05ca429afac9a2d631afb, type: 3}

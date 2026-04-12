@@ -70,7 +70,7 @@ MonoBehaviour:
       Value: 0
     - Key: 26
       Value: 0
-  main_path: 0
+  main_path: 1
   secondary_path: 0
   grounded_basic: []
   grounded_heavy: []
@@ -78,15 +78,15 @@ MonoBehaviour:
   aerial_heavy: []
   plunge: []
   base_abilities:
-    passive: {fileID: 5034335904935011333, guid: 00865a52f7d37a640bedb1d740ef2f5c, type: 3}
-    active: {fileID: 5034335904935011333, guid: 4459debceba05ca429afac9a2d631afb, type: 3}
+    passive: {fileID: 4343947424069704079, guid: 3a86028d381c1f04da1adb1d76c9ef25, type: 3}
+    active: {fileID: 2297828245348285926, guid: c52974beeda4f96408f82fa8625438ba, type: 3}
   somato_abilities:
-    passive: {fileID: 5034335904935011333, guid: 15f8a449f9e136340a802d23d12de052, type: 3}
-    active: {fileID: 5034335904935011333, guid: f58cc3991df879948b6006249a1e0a30, type: 3}
+    passive: {fileID: 3597573553572101290, guid: 239260b63ec36484bb24483f3d9536aa, type: 3}
+    active: {fileID: 7109435591813663270, guid: 218dcb4af20667b40ae633b5dc841e94, type: 3}
   aether_abilities:
-    passive: {fileID: 5034335904935011333, guid: 2b7d3aec1b5fe85419773f15a60e838a, type: 3}
-    active: {fileID: 5034335904935011333, guid: 09afc3b3091702d40a5f6e919b0266f6, type: 3}
+    passive: {fileID: 6229619687407192330, guid: ef2f32610e98d8c46ab23c0d6c1b20f7, type: 3}
+    active: {fileID: 2693257708176501850, guid: 6d41a4f97b3cdb64f93da49d69f61ae3, type: 3}
   onero_abilities:
-    passive: {fileID: 5034335904935011333, guid: 1cd01913ecfa6a64d82dc879ef47f3d9, type: 3}
-    active: {fileID: 5034335904935011333, guid: 65947557b1f28634b8680a7482d972b4, type: 3}
-  ultimate: {fileID: 5034335904935011333, guid: 0d27e6a3006bb554586c9f5dfc9880c3, type: 3}
+    passive: {fileID: 7307474791528847553, guid: 92275ea38c0657545b45ead00bb09843, type: 3}
+    active: {fileID: 7906967411679295067, guid: af7c890b7acc5a040a7d4178cab74543, type: 3}
+  ultimate: {fileID: 6199496153063702925, guid: 36a403a389ca30f42b5296c5603a2fbd, type: 3}

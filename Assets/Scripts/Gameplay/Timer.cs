@@ -67,13 +67,16 @@ public class Timer
         }
     }
 
+    public void Restart()
+    {
+        timer = 0f;
+        is_running = true;
+    }
+
     public void Stop()
     {
-        if (is_running)
-        {
-            is_running = false;
-            timer = 0f;
-        }
+        Restart();
+        Pause();
     }
 
 

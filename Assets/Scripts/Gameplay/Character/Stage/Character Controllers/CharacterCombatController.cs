@@ -7,14 +7,43 @@ using UnityEngine;
 
 public partial class CharacterCombatController : CharacterController, IOnCharacterLoaded, IOnPathSwitched, IOnCharacterSwitched
 {
-    private static readonly Path[] PATHS = (Path[])Enum.GetValues(typeof(Path));
 
     [SerializeField] private float global_min_hold_duration = 0.6f;
+    [SerializeField] private float global_attack_loop_reset = 0.3f;
+
+    [Header("Debug")]
+    [SerializeField] private int basic_grounded_loop_count = 0;
+    [SerializeField] private int basic_aerial_loop_count = 0;
+    [SerializeField] private int heavy_grounded_loop_count = 0;
+    [SerializeField] private int heavy_aerial_loop_count = 0;
+
+
+    private Timer attack_look_falloff;
+
+    private void Start()
+    {
+        void Reset()
+        {
+            basic_grounded_loop_count = 0;
+            basic_aerial_loop_count = 0;
+            heavy_grounded_loop_count = 0;
+            heavy_aerial_loop_count = 0;
+
+        }
+        attack_look_falloff = new(global_attack_loop_reset, Reset, false);
+        attack_look_falloff.Stop();
+    }
+
+    private void Update()
+    {
+        attack_look_falloff.Tick();
+    }
 
     public void TriggerBasicAttack(float input_duration)
     {
         bool is_aerial = !IsGrounded();
         bool is_heavy = input_duration > global_min_hold_duration;
+
 
         if (!is_aerial && !is_heavy)
         {
@@ -44,17 +73,33 @@ public partial class CharacterCombatController : CharacterController, IOnCharact
             Debug.Log("Aerial Heavy");
         }
 
+
+        HandleAttackLoopCount(is_heavy, is_aerial);
+        attack_look_falloff.Restart();
         ev.DoOnListeners<IOnBasicAttack>(listener => listener.OnBasicAttack(ch, is_heavy, is_aerial));
 
+    }
+
+    private void HandleAttackLoopCount(bool is_heavy, bool is_aerial)
+    {
+        basic_grounded_loop_count = !is_heavy && !is_aerial? basic_grounded_loop_count + 1 : 0;
+        basic_grounded_loop_count %= ch.CharacterData.grounded_basic.hit_count + 1;
+
+        basic_aerial_loop_count = !is_heavy && is_aerial ? basic_aerial_loop_count + 1 : 0;
+        basic_aerial_loop_count %= ch.CharacterData.aerial_basic.hit_count + 1;
+
+        heavy_grounded_loop_count = is_heavy && !is_aerial ? heavy_grounded_loop_count + 1 : 0;
+        heavy_grounded_loop_count %= ch.CharacterData.grounded_heavy.hit_count + 1;
+
+        heavy_aerial_loop_count = is_heavy && is_aerial ? heavy_aerial_loop_count + 1 : 0;
+        heavy_aerial_loop_count  %= ch.CharacterData.aerial_heavy.hit_count + 1;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        var scale = transform.localScale;
         Gizmos.DrawWireCube(transform.position + transform.right * Mathf.Sign(transform.localScale.x) * 3f, Vector3.one * 5f);
     }
-
 
     //wip, plunge should be automatically triggered when global_min_hold_duration is met rather than on key up
     public void TriggerPlunge(float input_duration)
@@ -64,13 +109,6 @@ public partial class CharacterCombatController : CharacterController, IOnCharact
             Debug.Log("Plunging");
         }
     }
-
-    public void TriggerBaseActive(float input_duration)
-    {
-        _base_set.active.TriggerActiveEffect();
-    }
-
-
 }
 
 public partial class CharacterCombatController
@@ -106,11 +144,17 @@ public partial class CharacterCombatController
         ch.SwitchPaths((Path)next);
     }
 
+    public void TriggerBaseActive(float input_duration)
+    {
+        _base_set.active.TriggerActiveEffect();
+    }
+
     public void TriggerPathActive(float input_duration)
     {
         path_ability_lookup[ch.CurrentPath].active.TriggerActiveEffect();
     }
 
+    #region character events
     public void OnCharacterLoaded(CharacterInstance character1, CharacterInstance character2)
     {
         if (!ch.Loaded)
@@ -169,7 +213,7 @@ public partial class CharacterCombatController
             path_ability_lookup[path].SetActive(path == entry_path);
         }
     }
-
+    #endregion
     #region helper methods
 
     private void InitializeAbilityInstances()
