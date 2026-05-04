@@ -5,27 +5,24 @@ using UnityEngine.Events;
 
 
 
-public partial class CharacterInstance : MonoBehaviour, IDamageable
+public partial class CharacterInstance : UnitInstance<Character>
 {
-    private Character character_data;
     private Character_Build char_build;
-
     private Stats build_stats;
-    private Stats current_stats;
 
     private Path current_path;
-    private bool is_active;
 
     public void Load(Character character, Character_Build build)
     {
-        character_data = character;
+        unit = character;
         char_build = build;
 
-        build_stats = character.stats + char_build.bonuses;
+        build_stats = unit.base_stats + char_build.bonuses;
         current_stats = new(build_stats);
+        Debug.Log(current_stats[StatType.MOVE_SPEED]);
     }
 
-    public void ReceiveDamage(float dmg, List<Damage_Tag> damage_tags, IDamageable source)
+    public override void ReceiveDamage(float dmg, List<Damage_Tag> damage_tags, IDamageable source)
     {
         if (!gameObject.activeSelf || current_stats[StatType.HP] <= 0)
             return;
@@ -52,14 +49,16 @@ public partial class CharacterInstance : MonoBehaviour, IDamageable
 #region Getters
 public partial class CharacterInstance
 {
-    public Character CharacterData { get => character_data; }
+    public Character CharacterData { get => unit; }
     public Character_Build Build { get => char_build; }
-    public Stats BaseStats { get => character_data.stats; }
+    public Stats BaseStats { get => unit.base_stats; }
     public Stats BuildStats { get => build_stats; }
     public Stats CurrentStats { get => current_stats; }
-    public bool Loaded { get => character_data != null;  }
+
+    public bool Loaded { get => unit != null;  }
     public Path CurrentPath { get => current_path; set => SwitchPaths(value); }
 
+    private bool is_active;
     public bool IsActive 
     { 
         get => is_active; 

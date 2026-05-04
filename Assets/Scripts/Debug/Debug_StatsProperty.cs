@@ -9,7 +9,7 @@ public class Debug_StatsProperty : MonoBehaviour
 
     private void Start()
     {
-        stat = stats.stats;
+        stat = stats.base_stats;
     }
 
 

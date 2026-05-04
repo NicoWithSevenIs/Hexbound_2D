@@ -106,14 +106,14 @@ public class UI_StatsPage : MonoBehaviour, IOnCharacterLoaded, IOnCharacterSwitc
 
     private void DisplayStats(Stats s)
     {
-        // Basic stats
+        // Basic base_stats
         hp.text = $"{s[StatType.HP]}";
         atk.text = $"{s[StatType.ATK]}";
         def.text = $"{s[StatType.DEF]}";
         atk_spd.text = $"{s[StatType.ATK_SPEED]}";
         mov_spd.text = $"{s[StatType.MOVE_SPEED]}";
 
-        // Advanced stats
+        // Advanced base_stats
         dash_dist.text = $"{s[StatType.DASH_FORCE] * 100:0.00}%";
         spa.text = $"{s[StatType.SUSTAINED_PATH_AMPLIFICATION]}";
         qsm.text = $"{s[StatType.QUICK_SWAP_MULTIPLIER] * 100:0.00}%";
@@ -133,14 +133,14 @@ public class UI_StatsPage : MonoBehaviour, IOnCharacterLoaded, IOnCharacterSwitc
 
     private void DisplayStatsRatio(Stats c, Stats t)
     {
-        // Basic stats
+        // Basic base_stats
         hp.text = $"{c[StatType.HP]}/{t[StatType.HP]}";
         atk.text = $"{c[StatType.ATK]}/{t[StatType.ATK]}";
         def.text = $"{c[StatType.DEF]}/{t[StatType.DEF]}";
         atk_spd.text = $"{c[StatType.ATK_SPEED]}/{t[StatType.ATK_SPEED]}";
         mov_spd.text = $"{c[StatType.MOVE_SPEED]}/{t[StatType.MOVE_SPEED]}";
 
-        // Advanced stats
+        // Advanced base_stats
         dash_dist.text = $"{c[StatType.DASH_FORCE] * 100:0.00}/{t[StatType.DASH_FORCE] * 100:0.00}%";
         spa.text = $"{c[StatType.SUSTAINED_PATH_AMPLIFICATION]}/{t[StatType.SUSTAINED_PATH_AMPLIFICATION]}";
         qsm.text = $"{c[StatType.QUICK_SWAP_MULTIPLIER] * 100:0.00}/{t[StatType.QUICK_SWAP_MULTIPLIER] * 100:0.00}%";

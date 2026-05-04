@@ -9,8 +9,6 @@ public class Character : Unit
     public Path main_path;
     public Path secondary_path;
 
-
-
     [Header("Action Multipliers")]
     [Space]
     public CharacterActionData grounded_basic;
@@ -18,8 +16,6 @@ public class Character : Unit
     public CharacterActionData aerial_basic;
     public CharacterActionData aerial_heavy;
     public CharacterActionData plunge;
-
-
 
     [Header("Abilities")]
     [Space]

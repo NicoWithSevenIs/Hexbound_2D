@@ -8,7 +8,7 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
 
     [SerializeField] private CharacterEvents character_events;
 
-    [SerializeField] private List<UnitInstance> unit_list = new();
+    [SerializeField] private List<IUnitInstance> unit_list = new();
 
     protected override void Awake()
     {
@@ -38,14 +38,14 @@ public partial class WorldManager : SingletonBehaviour<WorldManager>
     private void RegisterInstance(GameObject instance)
     {
         character_events.TryRegisterEvents(instance.gameObject);
-        var unit_instance = instance.GetComponent<UnitInstance>();
-        if (unit_instance)
+       
+        var unit_instance = instance.GetComponent<IUnitInstance>();
+        if (unit_instance != null)
         {
             unit_list.Add(unit_instance);
         }
+        
     }
-
-
 }
 
 

@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-public partial class CharacterCombatController : CharacterController, IOnCharacterLoaded, IOnPathSwitched, IOnCharacterSwitched
+public partial class CharacterCombatController : CharacterControlHandler, IOnCharacterLoaded, IOnPathSwitched, IOnCharacterSwitched
 {
 
     [SerializeField] private float global_min_hold_duration = 0.6f;

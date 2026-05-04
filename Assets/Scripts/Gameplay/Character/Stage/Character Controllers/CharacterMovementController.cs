@@ -2,7 +2,7 @@ using Hexbound.Stats;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class CharacterMovementController : CharacterController
+public partial class CharacterMovementController : CharacterControlHandler
 {
 
     /*
