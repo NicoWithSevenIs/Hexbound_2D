@@ -14,22 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   id: 0
   unit_name: Lucas Grayson
-  stats:
+  base_stats:
     _serializedList:
     - Key: 0
-      Value: 100
+      Value: 0
     - Key: 1
-      Value: 20
+      Value: 0
     - Key: 2
-      Value: 30
+      Value: 0
     - Key: 3
-      Value: 80
+      Value: 0
     - Key: 4
       Value: 0
     - Key: 5
-      Value: 3
+      Value: 1
     - Key: 6
-      Value: 50
+      Value: 40
     - Key: 7
       Value: 0
     - Key: 8

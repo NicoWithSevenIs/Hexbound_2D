@@ -15,5 +15,9 @@ MonoBehaviour:
   id: 0
   unit_name: 
   base_stats:
-    _serializedList: []
-  tier: 0
+    _serializedList:
+    - Key: 0
+      Value: 1000
+    - Key: 1
+      Value: 0
+  tier: 1
