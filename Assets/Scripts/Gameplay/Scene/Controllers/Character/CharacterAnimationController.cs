@@ -1,16 +1,31 @@
+using System;
 using UnityEngine;
 
-public class CharacterAnimationController : MonoBehaviour
+
+//temp implementation in the interest of time, optimize
+//this physically hurts me too
+public class CharacterAnimationController : CharacterControlHandler
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private Propagator propagator;
+
+
+    public void TriggerJump(Action on_leap)
     {
-        
+        void callback()
+        {
+            on_leap?.Invoke();
+            animator.SetBool("isJumping", false);
+        }
+        propagator.callback = callback;
+        animator.SetBool("isJumping", true);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        animator.SetBool("isGrounded", IsGrounded());
+        animator.SetFloat("x_velocity", Mathf.Abs(body.linearVelocity.x));
+        animator.SetFloat("y_velocity",body.linearVelocity.y);
     }
 }

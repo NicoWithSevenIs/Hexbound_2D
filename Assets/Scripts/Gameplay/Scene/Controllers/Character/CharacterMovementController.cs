@@ -21,14 +21,45 @@ public partial class CharacterMovementController : CharacterControlHandler
             body.AddForce(new Vector2(movement_axis * move_spd, 0));
         }
         
-        if (will_jump)
+        if (state.can_jump && will_jump && !is_jumping)
         {
             var jump_force = ch.CurrentStats[StatType.JUMP_FORCE];
-            body.AddForce(new Vector2(0, jump_force), ForceMode2D.Impulse);
+
+            var anim = GetComponent<CharacterAnimationController>();
+            is_jumping = true;
+            state.can_move = false;
+
+            if (IsGrounded())
+            {
+                anim.TriggerJump(() =>
+                {
+                    body.AddForce(new Vector2(0, jump_force), ForceMode2D.Impulse);
+                    is_jumping = false;
+                    state.can_move = true;
+                });
+            }
+            else
+            {
+                body.constraints |= RigidbodyConstraints2D.FreezePositionX;
+                body.constraints |= RigidbodyConstraints2D.FreezePositionY;
+
+                anim.TriggerJump(() =>
+                {
+                    body.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+                    body.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+
+                    body.AddForce(new Vector2(0, jump_force), ForceMode2D.Impulse);
+                    is_jumping = false;
+                    state.can_move = true;
+                });
+            }
+
+
             jump_count++;
             will_jump = false;
         }
 
+        /*
         if (will_dash)
         {
             var dash_force = ch.CurrentStats[StatType.DASH_FORCE];
@@ -39,6 +70,7 @@ public partial class CharacterMovementController : CharacterControlHandler
             body.AddForce(dash_force * dash_direction, ForceMode2D.Impulse);
             will_dash = false;
         }
+        */
     }
 
     private void Update()
@@ -73,6 +105,7 @@ public partial class CharacterMovementController
 
     //Jump
     [SerializeField] private bool will_jump = false;
+    private bool is_jumping = false;
     [SerializeField] private int jump_count = 0;
 
     //Dash
