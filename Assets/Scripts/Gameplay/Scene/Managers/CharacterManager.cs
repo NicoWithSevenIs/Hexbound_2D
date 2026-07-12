@@ -55,7 +55,7 @@ public partial class CharacterManager : MonoBehaviour
         character_1.IsActive = character_1 == current_character;
         character_1.Load(debug_character_1, debug_c1_build);
  
-        if (has_character_2)
+        if (character_2 != null)
         {
             character_2.IsActive = character_2 == current_character;
             character_2.Load(debug_character_2, debug_c2_build);
@@ -66,8 +66,8 @@ public partial class CharacterManager : MonoBehaviour
 
         char_events.DoOnListeners<IOnCharacterSwitched>(i => i.OnCharacterSwitched(character_1, character_2));
 
-        character_1.SwitchPaths(debug_character_1.main_path);
-        character_2.SwitchPaths(debug_character_2.main_path);
+        character_1.SwitchStrata(debug_character_1.main_stratum);
+        character_2.SwitchStrata(debug_character_2.main_stratum);
     }
 }
 
@@ -80,7 +80,10 @@ public partial class CharacterManager
     {
         char_events = GetComponent<CharacterEvents>();
         character_1.gameObject.SetActive(true);
-        character_2.gameObject.SetActive(true);
+        if (character_2)
+        {
+            character_2.gameObject.SetActive(true);
+        }
     }
 
     private void Start()

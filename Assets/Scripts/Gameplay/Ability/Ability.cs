@@ -11,15 +11,10 @@ using UnityEngine;
  
  */
 
-public partial class Ability : MonoBehaviour
+public class Ability : MonoBehaviour
 {
     [Header("Info")]
     [SerializeField] private string _ability_name;
-
-}
-
-public partial class Ability
-{
 
     [Header("Combat Data")]
     [SerializeField]
@@ -65,10 +60,8 @@ public partial class Ability
             }
         }
     }
-}
 
-
-public partial class Ability
-{
     public string AbilityName { get => _ability_name; }
 }
+
+

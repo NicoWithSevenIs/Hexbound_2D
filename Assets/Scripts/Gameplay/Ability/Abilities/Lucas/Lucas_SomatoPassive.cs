@@ -9,6 +9,6 @@ public class Lucas_SomatoPassive : AbilityComponent, IOnBasicAttack
 
     protected override void Activate()
     {
-        Debug.Log("Somato Passive: I can only activate if it's the current path");
+        Debug.Log("Somato Passive: I can only activate if it's the current stratum");
     }
 }

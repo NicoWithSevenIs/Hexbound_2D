@@ -9,6 +9,6 @@ public class Lucas_OneroPassive : AbilityComponent, IOnBasicAttack
 
     protected override void Activate()
     {
-        Debug.Log("Onero Passive: I'm persisistent between characters and paths");
+        Debug.Log("Onero Passive: I'm persisistent between characters and strata");
     }
 }

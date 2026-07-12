@@ -113,6 +113,7 @@ public class UI_StatsPage : MonoBehaviour, IOnCharacterLoaded, IOnCharacterSwitc
         atk_spd.text = $"{s[StatType.ATK_SPEED]}";
         mov_spd.text = $"{s[StatType.MOVE_SPEED]}";
 
+        /*
         // Advanced base_stats
         dash_dist.text = $"{s[StatType.DASH_FORCE] * 100:0.00}%";
         spa.text = $"{s[StatType.SUSTAINED_PATH_AMPLIFICATION]}";
@@ -129,6 +130,7 @@ public class UI_StatsPage : MonoBehaviour, IOnCharacterLoaded, IOnCharacterSwitc
         percent_pen.text = $"{s[StatType.PERCENT_PEN] * 100:0.00}%";
 
         all_dmg_amp.text = $"{s[StatType.ALL_DMG_AMP] * 100:0.00}%";
+        */
     }
 
     private void DisplayStatsRatio(Stats c, Stats t)
@@ -140,6 +142,7 @@ public class UI_StatsPage : MonoBehaviour, IOnCharacterLoaded, IOnCharacterSwitc
         atk_spd.text = $"{c[StatType.ATK_SPEED]}/{t[StatType.ATK_SPEED]}";
         mov_spd.text = $"{c[StatType.MOVE_SPEED]}/{t[StatType.MOVE_SPEED]}";
 
+        /*
         // Advanced base_stats
         dash_dist.text = $"{c[StatType.DASH_FORCE] * 100:0.00}/{t[StatType.DASH_FORCE] * 100:0.00}%";
         spa.text = $"{c[StatType.SUSTAINED_PATH_AMPLIFICATION]}/{t[StatType.SUSTAINED_PATH_AMPLIFICATION]}";
@@ -156,6 +159,7 @@ public class UI_StatsPage : MonoBehaviour, IOnCharacterLoaded, IOnCharacterSwitc
         percent_pen.text = $"{c[StatType.PERCENT_PEN] * 100:0.00}/{t[StatType.PERCENT_PEN] * 100:0.00}%";
 
         all_dmg_amp.text = $"{c[StatType.ALL_DMG_AMP] * 100:0.00}/{t[StatType.ALL_DMG_AMP] * 100:0.00}%";
+        */
     }
     #endregion
 }

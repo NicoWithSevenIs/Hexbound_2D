@@ -11,7 +11,7 @@ public class Lucas_AetherPassive : AbilityComponent, IOnBasicAttack
     {
         if (_character.IsActive)
         {
-            Debug.Log("Aether Passive: I'm persistent between Paths");
+            Debug.Log("Aether Passive: I'm persistent between Strata");
         }
     }
 }

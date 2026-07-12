@@ -18,38 +18,38 @@ namespace Hexbound.Stats
         //Mobility
         MAX_JUMPS,
         JUMP_FORCE,
-        DASH_FORCE,
 
-        // Damage Calcs
+        /*
+        Damage Calcs
 
-        /* Sustained Path Amplifier - After switching paths, reset this 
+        Sustained Stratum Amplifier - After switching paths, reset this 
         bonus to 0%. Staying longer for more than 1.15 seconds in one path 
         will cause this Multiplier to linearly ramp to 100% of its base value
-        over 3 seconds. */
+        over 3 seconds.
         SUSTAINED_PATH_AMPLIFICATION,
 
-        /* Quick Swap Multiplier - After switching paths, refresh this 
+        Quick Swap Multiplier - After switching paths, refresh this 
             bonus. Staying longer for more than 1.15 seconds in one path will 
-            cause this Multiplier to linearly decay to 0% over 3 seconds. */
+            cause this Multiplier to linearly decay to 0% over 3 seconds. 
         QUICK_SWAP_MULTIPLIER,
 
-        /*Crit Stats - Chance to multiply damage by the Crit DMG Multiplier*/
+        Crit Stats - Chance to multiply damage by the Crit DMG Multiplier
         CRIT_RATE,
         CRIT_DMG,
 
-        /*Echo Stats - Chance to repeat a portion of the DMG dealt as Additional 
-            DMG multiple times equal to the Echo Count*/
+        Echo Stats - Chance to repeat a portion of the DMG dealt as Additional 
+            DMG multiple times equal to the Echo Count
         ECHO_RATE,
         ECHO_COUNT,
         ECHO_DMG,
 
-        /*PEN Stats - Ignores a portion of the target's DEF during damage calculation.
+        PEN Stats - Ignores a portion of the target's DEF during damage calculation.
                 -> FLAT_PEN - flat def ignore, applied after Percent Def Ignore.
-                -> PERCENT_PEN - pen pineapple apple pen*/
+                -> PERCENT_PEN - pen pineapple apple pen
         FLAT_PEN,
         PERCENT_PEN,
 
-        /*DMG AMP - Amplifies final damage dealt*/
+        //DMG AMP - Amplifies final damage dealt
         ALL_DMG_AMP,
 
         //Context DMG Amplifiers
@@ -65,6 +65,7 @@ namespace Hexbound.Stats
         GROUNDED_HEAVY_DMG_BONUS,
         AERIAL_BASIC_DMG_BONUS,
         AERIAL_HEAVY_DMG_BONUS,
+        */
     }
 
     [Serializable]
@@ -112,8 +113,4 @@ namespace Hexbound.Stats
         }
         #endregion
     }
-
-
-
-
 }

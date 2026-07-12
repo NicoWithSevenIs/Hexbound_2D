@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Switch_Paths",
+                    "name": "Switch_Strata",
                     "type": "Value",
                     "id": "e2e8cd69-b8fa-47fc-9dcd-6731ee57e63d",
                     "expectedControlType": "Axis",
@@ -34,16 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "86d0bc8c-e2ca-4143-a726-f1c2a2a7fb01",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Basic_Attack",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "29e36cb3-6546-4120-bbde-e665ae2cf154",
                     "expectedControlType": "",
@@ -52,7 +43,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Plunge_Attack",
+                    "name": "Plunge",
                     "type": "Button",
                     "id": "f3e9fd64-b32c-4bed-bbb1-98c8b236f033",
                     "expectedControlType": "",
@@ -61,7 +52,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Basic_Ability",
+                    "name": "Base_Active",
                     "type": "Button",
                     "id": "cf431935-1574-4352-94dc-9fd263aa845e",
                     "expectedControlType": "",
@@ -70,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Path_Ability",
+                    "name": "Stratum_Active",
                     "type": "Button",
                     "id": "1d21cd6e-8b40-4dc5-b2da-cf560fde6e00",
                     "expectedControlType": "",
@@ -114,7 +105,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Basic_Attack",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -131,23 +122,12 @@
                 },
                 {
                     "name": "",
-                    "id": "694eeff4-5756-428c-adf6-3747f8d1155c",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "36ee314d-6adf-4cfd-a405-707c0cb69ce1",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Plunge_Attack",
+                    "action": "Plunge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -158,7 +138,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Basic_Ability",
+                    "action": "Base_Active",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -169,7 +149,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Path_Ability",
+                    "action": "Stratum_Active",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -235,7 +215,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Switch_Paths",
+                    "action": "Switch_Strata",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -246,7 +226,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Switch_Paths",
+                    "action": "Switch_Strata",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -257,14 +237,14 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Switch_Paths",
+                    "action": "Switch_Strata",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
                     "id": "1f98a4e5-7b3d-4abf-ba92-ef74a4a34005",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

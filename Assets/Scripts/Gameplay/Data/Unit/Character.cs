@@ -6,8 +6,8 @@ using System;
 [CreateAssetMenu(fileName = "Character", menuName = "Units/Character", order = 2)]
 public class Character : Unit
 {
-    public Path main_path;
-    public Path secondary_path;
+    public Stratum main_stratum;
+    public Stratum secondary_stratum;
 
     [Header("Action Multipliers")]
     [Space]

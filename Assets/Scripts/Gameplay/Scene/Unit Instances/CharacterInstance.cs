@@ -5,12 +5,12 @@ using UnityEngine.Events;
 
 
 
-public partial class CharacterInstance : UnitInstance<Character>
+public class CharacterInstance : UnitInstance<Character>
 {
     private Character_Build char_build;
     private Stats build_stats;
 
-    private Path current_path;
+    private Stratum current_stratum;
 
     public void Load(Character character, Character_Build build)
     {
@@ -35,37 +35,36 @@ public partial class CharacterInstance : UnitInstance<Character>
         events.DoOnListeners<IOnCharacterDefeated>(defeated => defeated.OnCharacterDefeated());
     }
 
-    public void SwitchPaths(Path entry_path)
+    public void SwitchStrata(Stratum entry_stratum)
     {
-        if(!is_active) return;
-        var departing_path = current_path;
-        current_path = entry_path;
+        if(!IsActive) return;
+        var departing_stratum = current_stratum;
+        current_stratum = entry_stratum;
         var events = GetComponentInParent<CharacterEvents>();
-        events.DoOnListeners<IOnPathSwitched>(listener => listener.OnPathSwitched(this, entry_path, departing_path));
+        events.DoOnListeners<IOnStratumSwitched>(listener => listener.OnStratumSwitched(this, entry_stratum, departing_stratum));
     }
+
+    #region Getters
+        public Character CharacterData { get => unit; }
+        public Character_Build Build { get => char_build; }
+        public Stats BaseStats { get => unit.base_stats; }
+        public Stats BuildStats { get => build_stats; }
+        public Stats CurrentStats { get => current_stats; }
+
+        public bool Loaded { get => unit != null; }
+        public Stratum CurrentStratum { get => current_stratum; set => SwitchStrata(value); }
+
+        private bool is_active;
+        public bool IsActive
+        {
+            get => is_active;
+            set
+            {
+                is_active = value;
+                gameObject.SetActive(value);
+            }
+        }
+    #endregion
 }
 
-#region Getters
-public partial class CharacterInstance
-{
-    public Character CharacterData { get => unit; }
-    public Character_Build Build { get => char_build; }
-    public Stats BaseStats { get => unit.base_stats; }
-    public Stats BuildStats { get => build_stats; }
-    public Stats CurrentStats { get => current_stats; }
 
-    public bool Loaded { get => unit != null;  }
-    public Path CurrentPath { get => current_path; set => SwitchPaths(value); }
-
-    private bool is_active;
-    public bool IsActive 
-    { 
-        get => is_active; 
-        set 
-        { 
-            is_active = value;
-            gameObject.SetActive(value);
-        } 
-    }
-}
-#endregion

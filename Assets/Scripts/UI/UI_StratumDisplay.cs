@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_PathDisplay : MonoBehaviour, IOnPathSwitched, IOnCharacterSwitched
+public class UI_StratumDisplay : MonoBehaviour, IOnStratumSwitched, IOnCharacterSwitched
 {
  
     [Serializable]
@@ -35,32 +35,32 @@ public class UI_PathDisplay : MonoBehaviour, IOnPathSwitched, IOnCharacterSwitch
     [SerializeField] private Highlightable Onero;
     [SerializeField] private Highlightable Aether;
 
-    private Dictionary<Path , Highlightable> Highlights = new();
+    private Dictionary<Stratum , Highlightable> Highlights = new();
     private void Awake()
     {
-        Highlights[Path.SOMATO] = Somato;
-        Highlights[Path.ONERO] = Onero;
-        Highlights[Path.AETHER] = Aether;
+        Highlights[Stratum.SOMATO] = Somato;
+        Highlights[Stratum.ONERO] = Onero;
+        Highlights[Stratum.AETHER] = Aether;
 
-        foreach(var (path, highlightable) in Highlights)
+        foreach(var (stratum, highlightable) in Highlights)
         {
             highlightable.DisableOutlines();
         }
     }
 
-    public void OnPathSwitched(CharacterInstance character, Path entry_path, Path departing_path)
+    public void OnStratumSwitched(CharacterInstance character, Stratum entry_stratum, Stratum departing_stratum)
     {
-        foreach (var path in Paths.Values)
+        foreach (var stratum in Strata.Values)
         {
-            var highlight = Highlights[path];
+            var highlight = Highlights[stratum];
 
-            if (path == entry_path)
+            if (stratum == entry_stratum)
             {
                 highlight.SetPrimaryActive();
                 continue;
             }
 
-            if (path == departing_path)
+            if (stratum == departing_stratum)
             {
                 highlight.SetSecondaryActive();
                 continue;
@@ -72,11 +72,11 @@ public class UI_PathDisplay : MonoBehaviour, IOnPathSwitched, IOnCharacterSwitch
 
     public void OnCharacterSwitched(CharacterInstance entering, CharacterInstance departing)
     {
-        foreach (var path in Paths.Values)
+        foreach (var stratum in Strata.Values)
         {
-            var highlight = Highlights[path];
+            var highlight = Highlights[stratum];
 
-            if (path == entering.CurrentPath)
+            if (stratum == entering.CurrentStratum)
             {
                 highlight.SetPrimaryActive();
                 continue;

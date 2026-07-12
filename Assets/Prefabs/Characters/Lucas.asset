@@ -30,48 +30,8 @@ MonoBehaviour:
       Value: 2
     - Key: 6
       Value: 40
-    - Key: 7
-      Value: 0
-    - Key: 8
-      Value: 0
-    - Key: 9
-      Value: 0
-    - Key: 10
-      Value: 0
-    - Key: 11
-      Value: 0
-    - Key: 12
-      Value: 0
-    - Key: 13
-      Value: 0
-    - Key: 14
-      Value: 0
-    - Key: 15
-      Value: 0
-    - Key: 16
-      Value: 0
-    - Key: 17
-      Value: 0
-    - Key: 18
-      Value: 0
-    - Key: 19
-      Value: 0
-    - Key: 20
-      Value: 0
-    - Key: 21
-      Value: 0
-    - Key: 22
-      Value: 0
-    - Key: 23
-      Value: 0
-    - Key: 24
-      Value: 0
-    - Key: 25
-      Value: 0
-    - Key: 26
-      Value: 0
-  main_path: 2
-  secondary_path: 1
+  main_stratum: 0
+  secondary_stratum: 0
   grounded_basic:
     hit_count: 4
     multipliers: []
