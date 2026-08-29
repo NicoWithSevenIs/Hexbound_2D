@@ -7,4 +7,7 @@ public class CharacterState : UnitState
     public bool can_dash = true;
     public bool can_switch_strata = true;
     public bool can_tag_out = true;
+
+
+    public bool is_hovering = false;
 }

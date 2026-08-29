@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UI_InputBufferDisplay : MonoBehaviour
 {
+    /*
     [SerializeField] private InputManager input_manager;
     [SerializeField] private List<GameObject> input_objects;
 
@@ -33,4 +34,5 @@ public class UI_InputBufferDisplay : MonoBehaviour
 
 
     }
+    */
 }

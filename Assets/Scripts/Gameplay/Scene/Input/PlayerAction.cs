@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum BufferedInputType
+public enum PlayerActionType
 {
     JUMP, 
     ATTACK,
@@ -8,9 +8,9 @@ public enum BufferedInputType
     STRATUM_ACTIVE,
 }
 
-public class BufferedInput 
+public class PlayerAction 
 {
-    public BufferedInputType type;
+    public PlayerActionType type;
     public bool is_held;
     public float input_time;
     public float lifetime;
