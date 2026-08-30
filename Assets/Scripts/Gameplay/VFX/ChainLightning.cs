@@ -20,6 +20,7 @@ public class ChainLightning : MonoBehaviour
 
     private void Update()
     {
+        line_renderer.enabled = true; //temp
         timer.Tick();
         line_renderer.positionCount = chain_pos_list.Count;
         line_renderer.SetPositions(chain_pos_list.ToArray());

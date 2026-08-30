@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Lucas_AetherPassive : AbilityComponent, IOnBasicAttack
+public class Lucas_AetherPassive : AbilityComponent
 {
     public void OnBasicAttack(CharacterInstance ch, bool is_heavy, bool is_aerial)
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Lucas_SomatoPassive : AbilityComponent, IOnBasicAttack
+public class Lucas_SomatoPassive : AbilityComponent
 {
     public void OnBasicAttack(CharacterInstance ch, bool is_heavy, bool is_aerial)
     {

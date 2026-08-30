@@ -19,6 +19,10 @@ namespace Hexbound.Stats
         MAX_JUMPS,
         JUMP_FORCE,
 
+        //Attack
+        ATK_RANGE,
+
+
         /*
         Damage Calcs
 

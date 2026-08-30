@@ -71,10 +71,6 @@ public class MVP_ProximityAttack : MonoBehaviour
         AttackUtilities.Chain(chain_args);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, range_radius);
-    }
 
 
 }

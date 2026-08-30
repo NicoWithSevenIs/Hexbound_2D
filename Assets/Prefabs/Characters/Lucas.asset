@@ -30,6 +30,8 @@ MonoBehaviour:
       Value: 2
     - Key: 6
       Value: 100
+    - Key: 7
+      Value: 12
   main_stratum: 0
   secondary_stratum: 0
   grounded_basic:

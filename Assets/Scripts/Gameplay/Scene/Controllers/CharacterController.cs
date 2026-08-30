@@ -7,24 +7,26 @@ public class CharacterController : MonoBehaviour
 {
     #region References
         //Character
-        private CharacterState state;
-        private CharacterInstance character;
-        
+        protected CharacterState state;
+        protected CharacterInstance character;
+        protected CharacterEvents events;
+
         //Physics
-        private Rigidbody2D body;
-        private CapsuleCollider2D coll;
+        protected Rigidbody2D body;
+        protected CapsuleCollider2D coll;
 
         //Rendering
-        private SpriteRenderer sprite;
-        private Animator anim;
+        protected SpriteRenderer sprite;
+        protected Animator anim;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             state = GetComponent<CharacterState>();
             character = GetComponent<CharacterInstance>();
 
             body = GetComponentInParent<Rigidbody2D>();
             coll = GetComponentInParent<CapsuleCollider2D>();
+            events = coll.GetComponent<CharacterEvents>();
 
             sprite = GetComponent<SpriteRenderer>();
             anim = GetComponent<Animator>();
@@ -34,34 +36,55 @@ public class CharacterController : MonoBehaviour
                 excluded |= m;
             }
         }
-        private void Start()
+        protected virtual void Start()
         {
             anim.SetInteger("attack_count", attack_index); //replace 3 with actual attack loop count
         }
     #endregion
 
     #region Ground Checking
-
-    private static float GROUND_CHECK_OFFSET = 0.5f;
-    [SerializeField] private List<LayerMask> exclude_list;
-    private LayerMask excluded = 0;
-    public bool IsGrounded() => Physics2D.CapsuleCast(coll.bounds.center, coll.size, coll.direction, 0, Vector2.down, GROUND_CHECK_OFFSET, ~excluded);
+        protected static float GROUND_CHECK_OFFSET = 0.5f;
+        [SerializeField] private List<LayerMask> exclude_list;
+        private LayerMask excluded = 0;
+        public bool IsGrounded() => Physics2D.CapsuleCast(coll.bounds.center, coll.size, coll.direction, 0, Vector2.down, GROUND_CHECK_OFFSET, ~excluded);
     #endregion
 
-    private float move_axis = 0;
-    private bool is_grounded = false;
-    
-    private int attack_index = 0;
-    private float last_attacked = 0;
+    protected float move_axis = 0;
+    protected bool is_grounded = false;
+
+    protected int attack_index = 0;
+    protected float last_attacked = 0;
 
     private void FixedUpdate()
+    {
+        Move();
+        Hover();
+    }
+
+    protected virtual void Update()
+    {
+        UpdateAnimatorData();
+
+        var x_dir = Mathf.Abs(move_axis);
+        if (x_dir != 0)
+        {
+            var scale = body.transform.localScale;
+            scale.x = Mathf.Sign(move_axis) * x_dir;
+            body.transform.localScale = scale;
+        }
+    }
+
+    protected virtual void Move()
     {
         if (state.can_move && move_axis != 0)
         {
             var move_spd = character.CurrentStats[StatType.MOVE_SPEED];
             body.AddForce(new Vector2(move_axis * move_spd, 0));
         }
+    }
 
+    protected virtual void Hover()
+    {
         var vel = body.linearVelocity;
         if (state.is_hovering)
         {
@@ -71,37 +94,11 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void UpdateAnimatorData()
     {
-        var x_dir = Mathf.Abs(move_axis);
-        is_grounded = IsGrounded(); //temp
-        last_attacked += Time.deltaTime;
 
-        anim.SetFloat("last_attacked", last_attacked);
-        anim.SetFloat("x_dir", x_dir);
-        anim.SetBool("is_grounded", is_grounded);
-        anim.SetFloat("y_vel", body.linearVelocity.y);
-        anim.SetBool("hovering", state.is_hovering);
-
-        /*
-        if (x_dir > 0)
-            sprite.flipX = move_axis < 0;
-        */
-
-        if(x_dir != 0)
-        {
-            var scale = body.transform.localScale;
-            scale.x = Mathf.Sign(move_axis) * x_dir;
-            body.transform.localScale = scale;
-        }
-        
-
-        //doesnt have to be in update this oul be calculated on aerial attack
-        var mouse_pos = Mouse.current.position.ReadValue();
-        var cursor_y_pos_diff = Camera.main.ScreenToWorldPoint(mouse_pos).y - transform.position.y;
-
-        anim.SetFloat("cursor_y_pos_diff", cursor_y_pos_diff);
     }
+
 
     #region Buffered Action
     public void InitiateAction(PlayerActionType action_type)
@@ -125,20 +122,19 @@ public class CharacterController : MonoBehaviour
 
     }
 
-    public void Jump()
+    public virtual void Jump()
     {
         var jump_force = character.CurrentStats[StatType.JUMP_FORCE];
         body.AddForce(new Vector2(0, jump_force), ForceMode2D.Impulse);
         body.constraints &= ~RigidbodyConstraints2D.FreezePosition;
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
-        attack_index = (attack_index + 1 ) % 2;
-        anim.SetInteger("attack_count", attack_index); //replace 3 with actual attack loop count
-        last_attacked = 0f;
+        
     }
-    public void AerialJumpWindup()
+
+    public virtual void AerialJumpWindup()
     {
         body.constraints |= RigidbodyConstraints2D.FreezePosition;
     }

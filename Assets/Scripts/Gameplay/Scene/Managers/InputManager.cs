@@ -76,8 +76,8 @@ public class InputManager : MonoBehaviour, IOnCharacterSwitched, IOnCharacterLoa
     {
         if (context.canceled)
         {
-            var prox = GetComponent<MVP_ProximityAttack>();
-            prox.Attack();
+            //var prox = GetComponent<MVP_ProximityAttack>();
+            //prox.Attack();
             current_controller.InitiateAction(PlayerActionType.ATTACK);
         }
     }

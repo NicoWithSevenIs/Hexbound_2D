@@ -81,7 +81,6 @@ public class CharacterEvents : MonoBehaviour
         Register<IOnUltimate>(instance);
 
         Register<IOnJump>(instance);
-        Register<IOnDash>(instance);
     }
 }
 

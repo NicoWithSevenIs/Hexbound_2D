@@ -792,7 +792,7 @@ GameObject:
   m_Layer: 0
   m_Name: Attack Origin
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -805,11 +805,11 @@ Transform:
   m_GameObject: {fileID: 169270587}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.72, y: 0.81, z: 0}
+  m_LocalPosition: {x: 1.72, y: 0.80999994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1006278127}
+  m_Father: {fileID: 1589441693900469961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &182146135
 GameObject:
@@ -8021,7 +8021,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 169270589}
   - {fileID: 1589441693900469961}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8368,7 +8367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MVP_ProximityAttack
   attack_origin: {fileID: 169270589}
   range_radius: 12
-  chain_range: 0
+  chain_range: 5
   chain_lightning_prefab: {fileID: 3883879179850155281, guid: 7c1251d15fc9f304c830acaf2d2865a1, type: 3}
 --- !u!1 &1011510002
 GameObject:
@@ -16239,6 +16238,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 169270589}
   - {fileID: 4698866773317626369}
   m_Father: {fileID: 1006278127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16279,9 +16279,9 @@ GameObject:
   - component: {fileID: 1589441693900469961}
   - component: {fileID: 1201588858715121059}
   - component: {fileID: 6759851699799380804}
-  - component: {fileID: 6759851699799380805}
   - component: {fileID: 6759851699799380807}
   - component: {fileID: 6759851699799380806}
+  - component: {fileID: 6759851699799380808}
   m_Layer: 6
   m_Name: Character1
   m_TagString: Untagged
@@ -16594,21 +16594,6 @@ MonoBehaviour:
   can_switch_strata: 1
   can_tag_out: 1
   is_hovering: 0
---- !u!114 &6759851699799380805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764859753181296952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f88098da112fb444e8e971fdcbc96a7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterController
-  exclude_list:
-  - serializedVersion: 2
-    m_Bits: 64
 --- !u!212 &6759851699799380806
 SpriteRenderer:
   serializedVersion: 2
@@ -16690,6 +16675,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6759851699799380808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764859753181296952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3910518762709cf438b221701bdc7b4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinervaController
+  exclude_list:
+  - serializedVersion: 2
+    m_Bits: 64
+  attack_origin: {fileID: 169270589}
+  chain_lightning_prefab: {fileID: 7651925891028393277, guid: 7c1251d15fc9f304c830acaf2d2865a1, type: 3}
 --- !u!224 &6830969306206950224
 RectTransform:
   m_ObjectHideFlags: 0
